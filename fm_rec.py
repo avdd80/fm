@@ -154,11 +154,11 @@ def send_udp_message (MESSAGE):
 
 def get_station_name (freq):
 
-    global SD_FM_stations
+    global SAN_FM_stations
     # Default name
     station_name = str(freq) + ' MHz'
-    if freq in SD_FM_stations:
-        station_name = SD_FM_stations[freq]
+    if freq in SAN_FM_stations:
+        station_name = SAN_FM_stations[freq]
     return station_name
 
 def main ():
