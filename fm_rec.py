@@ -96,7 +96,8 @@ def delete_remote_file (hour):
                     print ('Found garbage on remote! Cannot delete remote file!\n')
             else:
                 print ('No matching file on remote dir for ' + search_str + '\n')
-                
+    else:
+        print 'Bad result from list cmd!'
 
 
 
