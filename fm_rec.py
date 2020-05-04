@@ -134,6 +134,10 @@ def main ():
 
     global ROOT_PATH
     loop = 1
+    
+    ########################## HACK ##########################
+    delete_remote_file ()
+    exit()
     while loop:
         #loop = 0
         target_wav_file = ''
@@ -163,8 +167,8 @@ def main ():
             is_record_success = record_fm_60_mins (target_wav_file, duration_mins)
 
             if (is_record_success):
-
-                delete_remote_file (hour)
+                
+                #delete_remote_file (hour)
 
                 send_udp_message (target_wav_file + ',' + target_mp3_file)
                 print 'Record success'
