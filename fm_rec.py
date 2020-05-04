@@ -166,9 +166,6 @@ def get_station_name (freq):
         station_name = SAN_FM_stations[freq]
     return station_name
 
-def get_target_filename (hour):
-  
-
 def main ():
 
     global ROOT_PATH
