@@ -91,7 +91,7 @@ def delete_remote_file (hour):
             
                 print ' Found remote file: ' + remote_list_lines[i]
             
-                remote_list_lines_split = remote_list_lines[0].split(' ')
+                remote_list_lines_split = remote_list_lines[i].split(' ')
                 filename = remote_list_lines_split[2]
 
                 # If a matching file is found, delete it
