@@ -13,7 +13,7 @@ SCHED_PATH_F = '/home/pi/Music/schedule.txt'
 SAN_FM_stations = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
 #BLR_FM_stations = {91.1: 'Radio City'}
 
-DROPBOX_DOWNLOAD_SCRIPT = '/home/pi/fm/download_schedule.sh'
+DROPBOX_DOWNLOAD_SCRIPT = 'sudo /home/pi/fm/download_schedule.sh'
 DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download '
 DROPBOX_DELETE_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh delete /'
 DROPBOX_LIST_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list /'
