@@ -76,7 +76,7 @@ def delete_remote_file (hour):
             length = len (remote_list_lines)
             
             # Search for matching file names
-            while (i < length and if search_str != remote_list_lines[i]):
+            while (i < length and search_str != remote_list_lines[i]):
                 i += 1
             
             # The first list of the list command result does not contain filename. If
