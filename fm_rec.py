@@ -99,7 +99,7 @@ def delete_remote_file (hour):
                     print 'Deleting remote file (cmd commented) ' + filename
     #                subprocess.call (DROPBOX_DELETE_CMD + filename)
                 else:
-                    print ('Found garbage on remote! Cannot delete remote file!\n')
+                    print ('Found garbage on remote! Cannot delete remote file ' + filename)
             else:
                 print ('No matching file on remote dir for ' + search_str + '\n')
     else:
