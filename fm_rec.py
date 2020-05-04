@@ -64,7 +64,11 @@ def delete_remote_file (hour):
     if (len (output) > 0):
         # Search for 'hh00_'
 
-        search_str = (str(hour*100)+'_')
+        
+        #search_str = (str(hour*100)+'_')
+        
+        ####################################### TEST HACK
+        search_str = '23'
         
         # Is hh00 present on the remote dir?
         if (search_str in output):
