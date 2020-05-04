@@ -122,7 +122,10 @@ def tune_fm(freq):
 def download_schedule ():
     global DROPBOX_DOWNLOAD_CMD
     global SCHED_PATH_F
-    subprocess.call (DROPBOX_DOWNLOAD_CMD + 'schedule.txt ' + SCHED_PATH_F)
+    cmd = DROPBOX_DOWNLOAD_CMD + 'schedule.txt ' + SCHED_PATH_F
+    print 'Download schedule cmd:\n'
+    print cmd + '\n'
+    subprocess.call (cmd)
 
 
 def record_fm_mins (target_wav_file, duration_mins):
@@ -171,10 +174,6 @@ def main ():
     global ROOT_PATH
     loop = 1
     
-    
-    ############# TEST HACK
-    delete_remote_file (9)
-    
     while loop:
         #loop = 0
         target_wav_file = ''
@@ -186,7 +185,6 @@ def main ():
             timenow = datetime.now()
             hour = timenow.hour
             minute = timenow.minute
-            print timenow
             formatted_hour = str(hour*100)
             if (hour == 0):
                 formatted_hour = '0000'
