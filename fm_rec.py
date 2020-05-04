@@ -10,7 +10,7 @@ STEREO_AUDIO_INJECTOR_REC_CMD = 'sudo arecord -c 2 -f S16_LE -V stereo -r 48000 
 TUNER_PATH = '/home/pi/Music/radio_tea5767/radio_tea5767'
 ROOT_PATH = '/home/pi/Music/fm_db/'
 SCHED_PATH_F = '/home/pi/Music/schedule.txt'
-#TEMP_FILE_F = '/home/pi/temp.txt'
+SD_FM_stations = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
 
 DROPBOX_DOWNLOAD_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download '
 DROPBOX_DELETE_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh delete /'
@@ -120,16 +120,12 @@ def send_udp_message (MESSAGE):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
 
-
-
-SD_FM_stations = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
-
 def get_station_name (freq):
 
     global SD_FM_stations
     # Default name
     station_name = str(freq) + ' MHz'
-    if freq in FM_stations:
+    if freq in SD_FM_stations:
         station_name = SD_FM_stations[freq]
     return station_name
 
