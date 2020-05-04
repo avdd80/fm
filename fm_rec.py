@@ -133,6 +133,11 @@ def main ():
 
     global ROOT_PATH
     loop = 1
+    
+    
+    ############# TEST HACK
+    delete_remote_file (9)
+    
     while loop:
         #loop = 0
         target_wav_file = ''
