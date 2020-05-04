@@ -54,7 +54,7 @@ def delete_remote_file (hour):
 #    remote_list_fp.close()
 #    os.remove (TEMP_FILE_F)
 
-    ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    ps = subprocess.Popen(DROPBOX_LIST_CMD, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ps.communicate()[0]
     print(output)
 
