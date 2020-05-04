@@ -136,7 +136,7 @@ def main ():
     loop = 1
     
     ########################## HACK ##########################
-    delete_remote_file ()
+    delete_remote_file (9)
     exit()
     while loop:
         #loop = 0
