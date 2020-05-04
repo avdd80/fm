@@ -92,14 +92,15 @@ def delete_remote_file (hour):
                 print ' Found remote file: ' + remote_list_lines[i]
             
                 remote_list_lines_split = remote_list_lines[i].split(' ')
-                filename = remote_list_lines_split[2]
+                if (len(remote_list_lines_split) >= 3):
+                    filename = remote_list_lines_split[3]
 
                 # If a matching file is found, delete it
                 if ('mp3' in filename):
                     print 'Deleting remote file (cmd commented) ' + filename
     #                subprocess.call (DROPBOX_DELETE_CMD + filename)
                 else:
-                    print ('Found garbage on remote! Cannot delete remote file ' + filename)
+                    print ('Found garbage on remote! Cannot delete remote file!\n')
             else:
                 print ('No matching file on remote dir for ' + search_str + '\n')
     else:
