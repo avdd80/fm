@@ -81,7 +81,7 @@ def delete_remote_file (hour):
             
             # The first list of the list command result does not contain filename. If
             # i has not incremented beyond 0, no file on remote dir is found. 
-            if (i > 0)
+            if (i > 0):
             
                 print ' Found remote file: ' + remote_list_lines[i]
             
