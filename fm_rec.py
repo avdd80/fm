@@ -64,19 +64,23 @@ def delete_remote_file (hour):
     # Check if a file with current hour is present.
     if (len (output) > 0):
         # Search for 'hh00_'
+        if (hour > 0):
+            search_str = (str(hour*100)+'_')
+        elif (hour == 0):
+            search_str = '0000_'
 
-        
-        #search_str = (str(hour*100)+'_')
-        
-        ####################################### TEST HACK
-        search_str = '23'
-        
-        # Is hh00 present on the remote dir?
+        # Is hh00_ present on the remote dir?
         if (search_str in output):
             i = 0
             
             # Split the result of list cmd line-by-line and locate the matching file
-            # listing
+            # listing:
+            # > Listing "/"... DONE
+            # [D]        #  du_tests
+            # [F] 27840768 2200_ABC.mp3
+            # [F] 36480768 2300_DEF.mp3
+            # [F] 57600768 0000_XYZ.mp3
+            
             remote_list_lines = output.split("\n")
             length = len (remote_list_lines)
             
@@ -84,7 +88,7 @@ def delete_remote_file (hour):
             while (i < length and search_str not in remote_list_lines[i]):
                 i += 1
             print 'Found file at index ' + str(i) + '\n'
-            
+
             # The first list of the list command result does not contain filename. If
             # i has not incremented beyond 0, no file on remote dir is found. 
             if (i > 0 and i < length):
