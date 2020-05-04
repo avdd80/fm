@@ -125,7 +125,7 @@ def download_schedule ():
     subprocess.call (DROPBOX_DOWNLOAD_CMD + 'schedule.txt ' + SCHED_PATH_F)
 
 
-def record_fm_60_mins (target_wav_file, duration_mins):
+def record_fm_mins (target_wav_file, duration_mins):
 
     if (os.path.exists(target_wav_file)):
         print ('Deleting existing wav file:')
@@ -166,6 +166,9 @@ def get_station_name (freq):
         station_name = SAN_FM_stations[freq]
     return station_name
 
+def get_target_filename (hour):
+  
+
 def main ():
 
     global ROOT_PATH
@@ -188,8 +191,8 @@ def main ():
             minute = timenow.minute
             print timenow
             formatted_hour = str(hour*100)
-            if (len(formatted_hour) < 4):
-                formatted_hour = '0' + formatted_hour
+            if (hour == 0):
+                formatted_hour = '0000'
             target_wav_file = ROOT_PATH + 'wav/' + formatted_hour + '_' + get_station_name(tune_freq) + '.wav'
             target_mp3_file = ROOT_PATH + 'mp3/' + formatted_hour + '_' + get_station_name(tune_freq) + '.mp3'
             if os.path.exists(target_wav_file):
@@ -198,10 +201,11 @@ def main ():
             tune_fm(tune_freq)
             print 'FM tuned to ' + str(tune_freq) + ' MHz\n'
             timenow = datetime.now()
-            duration_mins = 60 - minute
+            #duration_mins = 60 - minute
+            duration_mins = 1
             
             print 'Record for ' + str(duration_mins) + ' mins'
-            is_record_success = record_fm_60_mins (target_wav_file, duration_mins)
+            is_record_success = record_fm_mins (target_wav_file, duration_mins)
             print 'Record done.\n'
 
             if (is_record_success):
