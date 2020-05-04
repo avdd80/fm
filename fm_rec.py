@@ -54,15 +54,15 @@ def delete_remote_file (hour):
 #    remote_list_fp.close()
 #    os.remove (TEMP_FILE_F)
 
-    ps = subprocess.Popen(DROPBOX_LIST_CMD, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ps.communicate()[0]
     print(output)
 
     remote_list_lines = output.split("\n")
 
-    # Check if a file with current hour is present. 
+    # Check if a file with current hour is present.
     if (len (remote_list_lines) > 0):
-        if (hour in remote_list_lines[0]):
+        if (str(hour) in remote_list_lines[0]):
             remote_list_lines_split = remote_list_lines[0].split(' ')
             filename = remote_list_lines_split[2]
 
@@ -122,22 +122,21 @@ def send_udp_message (MESSAGE):
 
 
 
-FM_stations = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
+SD_FM_stations = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
 
 def get_station_name (freq):
-    station_name = ''
+
+    global SD_FM_stations
+    # Default name
+    station_name = str(freq) + ' MHz'
     if freq in FM_stations:
-        station_name = FM_stations[freq]
+        station_name = SD_FM_stations[freq]
     return station_name
 
 def main ():
 
     global ROOT_PATH
     loop = 1
-    
-    ########################## HACK ##########################
-    delete_remote_file (9)
-    exit()
     while loop:
         #loop = 0
         target_wav_file = ''
@@ -167,12 +166,30 @@ def main ():
             is_record_success = record_fm_60_mins (target_wav_file, duration_mins)
 
             if (is_record_success):
-                
-                #delete_remote_file (hour)
 
-                send_udp_message (target_wav_file + ',' + target_mp3_file)
+                delete_remote_file (hour)
+
+                ############### MP3 metadata ###############
+                udp_msg = target_wav_file + ',' + target_mp3_file + ','
+
+                album_value = get_station_name(tune_freq)
+                udp_msg = udp_msg + album_value + ','
+
+                song_value = formatted_hour + ':00 ' + get_station_name(tune_freq)
+                udp_msg = udp_msg + song_value + ','
+
+                artist_value = 'Abhijeet Deshpande'
+                udp_msg = udp_msg + artist_value + ','
+
+                year_value = str(timenow.year)
+                udp_msg = udp_msg + year_value + ','
+
+                genre_value  = 'Radio'
+                udp_msg = udp_msg + genre_value
+
+                send_udp_message (udp_msg)
                 print 'Record success'
-                
+
                 # Download requested recording schedule
                 download_schedule ()
             else:
