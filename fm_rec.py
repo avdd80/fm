@@ -82,6 +82,7 @@ def delete_remote_file (hour):
             # Search for matching file names
             while (i < length and search_str != remote_list_lines[i]):
                 i += 1
+            print 'Found file at index ' + str(i) + '\n'
             
             # The first list of the list command result does not contain filename. If
             # i has not incremented beyond 0, no file on remote dir is found. 
