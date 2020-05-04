@@ -62,7 +62,8 @@ def delete_remote_file (hour):
 
     # Check if a file with current hour is present.
     if (len (remote_list_lines) > 0):
-        if (str(hour) in remote_list_lines[0]):
+        # Search for 'hh00_'
+        if ((str(hour*100)+'_') in remote_list_lines[0]):
             remote_list_lines_split = remote_list_lines[0].split(' ')
             filename = remote_list_lines_split[2]
 
