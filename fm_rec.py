@@ -58,21 +58,45 @@ def delete_remote_file (hour):
     output = ps.communicate()[0]
     print(output)
 
-    remote_list_lines = output.split("\n")
+    
 
     # Check if a file with current hour is present.
-    if (len (remote_list_lines) > 0):
+    if (len (output) > 0):
         # Search for 'hh00_'
-        if ((str(hour*100)+'_') in remote_list_lines[0]):
-            remote_list_lines_split = remote_list_lines[0].split(' ')
-            filename = remote_list_lines_split[2]
 
-            # If the file is found, delete it
-            if ('mp3' in filename):
-                print 'Deleting remote file (cmd commented) ' + filename
-#                subprocess.call (DROPBOX_DELETE_CMD + filename)
+        search_str = (str(hour*100)+'_')
+        
+        # Is hh00 present on the remote dir?
+        if (search_str in output):
+            i = 0
+            
+            # Split the result of list cmd line-by-line and locate the matching file
+            # listing
+            remote_list_lines = output.split("\n")
+            length = len (remote_list_lines)
+            
+            # Search for matching file names
+            while (i < length and if search_str != remote_list_lines[i]):
+                i += 1
+            
+            # The first list of the list command result does not contain filename. If
+            # i has not incremented beyond 0, no file on remote dir is found. 
+            if (i > 0)
+            
+                print ' Found remote file: ' + remote_list_lines[i]
+            
+                remote_list_lines_split = remote_list_lines[0].split(' ')
+                filename = remote_list_lines_split[2]
+
+                # If a matching file is found, delete it
+                if ('mp3' in filename):
+                    print 'Deleting remote file (cmd commented) ' + filename
+    #                subprocess.call (DROPBOX_DELETE_CMD + filename)
+                else:
+                    print ('Found garbage on remote! Cannot delete remote file!\n')
             else:
-                print ('Found garbage on remote! Cannot delete remote file!')
+                print ('No matching file on remote dir for ' + search_str + '\n')
+                
 
 
 
@@ -160,12 +184,13 @@ def main ():
                 os.remove(target_wav_file)
             print 'Tuning FM...'
             tune_fm(tune_freq)
-            print 'FM tuned to ' + str(tune_freq) + ' MHz'
+            print 'FM tuned to ' + str(tune_freq) + ' MHz\n'
             timenow = datetime.now()
             duration_mins = 60 - minute
             
             print 'Record for ' + str(duration_mins) + ' mins'
             is_record_success = record_fm_60_mins (target_wav_file, duration_mins)
+            print 'Record done.\n'
 
             if (is_record_success):
 
