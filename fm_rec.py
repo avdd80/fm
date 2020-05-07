@@ -125,11 +125,17 @@ def download_schedule ():
     global DROPBOX_DOWNLOAD_SCRIPT
     global SCHED_PATH_F
     #cmd = DROPBOX_DOWNLOAD_CMD + 'schedule.txt ' + SCHED_PATH_F
-    cmd = DROPBOX_DOWNLOAD_SCRIPT
+    #cmd = DROPBOX_DOWNLOAD_SCRIPT
     print 'Download schedule cmd:\n'
     print cmd + '\n'
-    subprocess.call (cmd)
+    #subprocess.call (cmd)
 
+    ps = subprocess.Popen(DROPBOX_DOWNLOAD_CMD, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    output = ps.communicate()[0]
+    print(output)
+    sleep (10)
+
+    
 
 def record_fm_mins (target_wav_file, duration_mins):
 
