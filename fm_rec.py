@@ -122,6 +122,7 @@ def tune_fm(freq):
 
 def download_schedule ():
     global DROPBOX_DOWNLOAD_CMD
+    global DROPBOX_DOWNLOAD_SCRIPT
     global SCHED_PATH_F
     #cmd = DROPBOX_DOWNLOAD_CMD + 'schedule.txt ' + SCHED_PATH_F
     cmd = DROPBOX_DOWNLOAD_SCRIPT
