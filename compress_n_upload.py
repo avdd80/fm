@@ -113,7 +113,7 @@ while True:
     genre_value  = temp[6]
 
     is_wav2mp3_success = wav2mp3 (wav_target_file, mp3_target_file)
-    ps = subprocess.Popen('rm -f ' + wav_target_file , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    ps = subprocess.Popen('sudo rm -f ' + wav_target_file , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ps.communicate()[0]
     print(output)
 
