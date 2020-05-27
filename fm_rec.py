@@ -206,7 +206,7 @@ def main ():
             print 'FM tuned to ' + str(tune_freq) + ' MHz\n'
             timenow = datetime.now()
             #duration_mins = 60 - minute
-            duration_mins = 1
+            duration_mins = 3
             
             print 'Record for ' + str(duration_mins) + ' mins'
             is_record_success = record_fm_mins (target_wav_file, duration_mins)
