@@ -28,7 +28,7 @@ def is_file_valid(filepath, extension): # input audio file path and extension (.
         print('Bad file path ' + filepath + ' or extension: ' + extension) # warning message
         return 0
 
-def tag_mp3(mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, cover_art_file)::
+def tag_mp3(mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, cover_art_file):
 
 
     if (is_file_valid(mp3_target_file, 'mp3')):
