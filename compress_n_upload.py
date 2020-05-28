@@ -40,8 +40,8 @@ def tag_mp3(mp3_target_file, album_value, song_value, artist_value, year_value, 
         except error:
             pass
         
-        audio.tags['album'] = 'Album test'
-        audio.tags['title'] = 'Title test'
+        audio.tags["album"] = 'Album test'
+        audio.tags["title"] = 'Title test'
         if (is_file_valid(cover_art_file, 'jpg')):
             audio.tags.add(APIC(mime='image/jpeg',type=3,desc=u'Cover',data=open(cover_art_file,'rb').read()))
         # edit ID3 tags to open and read the picture from the path specified and assign it
