@@ -69,27 +69,6 @@ def trigger_file_upload (filename):
     else:
         return 0
 
-
-def main ():
-    
-    
-    data, server = sock_in.recvfrom(4096)
-
-    print 'Received UDP: ' + data
-
-    split_data = data.split(',')
-    
-    src = split_data[0]
-    dst = split_data[1]
-
-
-    print 'Source: ' + src
-    print 'Destination: ' + dst
-    
-    wav2mp3 (src, dst)
-
-
-
 def get_remote_file_name (hour):
 
     ps = subprocess.Popen(DROPBOX_LIST_CMD, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
