@@ -206,47 +206,54 @@ def main ():
             print 'FM tuned to ' + str(tune_freq) + ' MHz\n'
             timenow = datetime.now()
             #duration_mins = 60 - minute
-            duration_mins = 3
+            duration_mins = 5
             
-            print 'Record for ' + str(duration_mins) + ' mins'
-            is_record_success = record_fm_mins (target_wav_file, duration_mins)
-            print 'Record done.\n'
+            if (duration_mins > 4):
+            
+                print 'Record for ' + str(duration_mins) + ' minutes'
+                is_record_success = record_fm_mins (target_wav_file, duration_mins)
+                print 'Record done.\n'
 
-            if (is_record_success):
+                if (is_record_success):
 
-                delete_remote_file (hour)
+                    delete_remote_file (hour)
 
-                ############### MP3 metadata ###############
-                udp_msg = target_wav_file + ',' + target_mp3_file + ','
+                    ############### MP3 metadata ###############
+                    udp_msg = target_wav_file + ',' + target_mp3_file + ','
 
-                album_value = get_station_name(tune_freq)
-                udp_msg = udp_msg + album_value + ','
+                    album_value = get_station_name(tune_freq)
+                    udp_msg = udp_msg + album_value + ','
 
-                song_value = formatted_hour + ':00 ' + get_station_name(tune_freq)
-                udp_msg = udp_msg + song_value + ','
+                    song_value = formatted_hour + ':00 ' + get_station_name(tune_freq)
+                    udp_msg = udp_msg + song_value + ','
 
-                artist_value = 'Abhijeet Deshpande'
-                udp_msg = udp_msg + artist_value + ','
+                    artist_value = 'Abhijeet Deshpande'
+                    udp_msg = udp_msg + artist_value + ','
 
-                year_value = str(timenow.year)
-                udp_msg = udp_msg + year_value + ','
+                    year_value = str(timenow.year)
+                    udp_msg = udp_msg + year_value + ','
 
-                genre_value  = 'Radio'
-                udp_msg = udp_msg + genre_value
+                    genre_value  = 'Radio'
+                    udp_msg = udp_msg + genre_value
 
-                send_udp_message (udp_msg)
-                print 'Record success'
+                    send_udp_message (udp_msg)
+                    print 'Record success'
 
-                # Download requested recording schedule
-                download_schedule ()
+                    # Download requested recording schedule
+                    download_schedule ()
+                else:
+                    print 'Record failed. Wait 60 seconds...'
+                    sleep (60)
             else:
-                print 'Record failed'
+                print 'Record duration too short (' + str(duration_mins) + ' minutes). Skipping current record. Wait 60 seconds...'
                 sleep (60)
         else:
-            print 'No recording'
+            print 'No recording. Wait 60 seconds...'
             sleep (60)
 
     #else:
             #radio_off()
-
+###############################################################
+# Main Function Call
+###############################################################
 main()
