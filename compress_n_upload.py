@@ -30,7 +30,7 @@ def tag_mp3 (mp3_target_file, album_value, song_value, artist_value, year_value,
     cmd = cmd + mp3_target_file
     ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     # Wait for sufficient amount of time to tag mp3 file.
-    sleep (60)
+    sleep (20)
 
 
 def wav2mp3 (src, dest):
