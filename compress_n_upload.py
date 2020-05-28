@@ -4,6 +4,8 @@ import shlex
 import os
 from datetime import *
 from time import sleep
+from mutagen.mp3 import MP3
+from mutagen.id3 import ID3, APIC, error
 
 UDP_IP = "127.0.0.1"
 
@@ -16,6 +18,38 @@ DROPBOX_UPLOADER_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh 
 DROPBOX_LIST_CMD     = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list '
 MP3_TAG_CMD          = 'sudo /usr/bin/id3tag '
 
+
+
+# #################################################################
+def is_file_valid(filepath, extension): # input audio file path and extension (.xxx)
+    if os.path.isfile(filepath) and filepath.endswith(extension):
+        return 1
+    else:
+        print('Bad file path ' + filepath + ' or extension: ' + extension) # warning message
+        return 0
+
+def tag_mp3(mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, cover_art_file)::
+
+
+    if (is_file_valid(mp3_target_file, 'mp3')):
+
+        audio = MP3(audio_path, ID3=ID3)
+        # adding ID3 tag if it is not present
+        try:
+            audio.add_tags()
+        except error:
+            pass
+        
+        audio.tags['album'] = 'Album test'
+        audio.tags['title'] = 'Title test'
+        if (is_file_valid(cover_art_file, 'jpg'):
+            audio.tags.add(APIC(mime='image/jpeg',type=3,desc=u'Cover',data=open(cover_art_file,'rb').read()))
+        # edit ID3 tags to open and read the picture from the path specified and assign it
+        audio.save()  # save the current changes
+
+
+############################################################################# #
+"""
 
 def tag_mp3 (mp3_target_file, album_value, song_value, artist_value, year_value, genre_value):
     cmd = MP3_TAG_CMD
@@ -31,7 +65,7 @@ def tag_mp3 (mp3_target_file, album_value, song_value, artist_value, year_value,
     ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     # Wait for sufficient amount of time to tag mp3 file.
     sleep (20)
-
+"""
 
 def wav2mp3 (src, dest):
 
@@ -100,7 +134,7 @@ while True:
 
     if (is_wav2mp3_success):
 
-        tag_mp3 (mp3_target_file, album_value, song_value, artist_value, year_value, genre_value)
+        tag_mp3 (mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, '/home/pi/fm/cover.jpg')
 
         is_upload_success = trigger_file_upload (mp3_target_file)
 
