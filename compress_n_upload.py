@@ -33,7 +33,7 @@ def tag_mp3(mp3_target_file, album_value, song_value, artist_value, year_value, 
 
     if (is_file_valid(mp3_target_file, 'mp3')):
 
-        audio = MP3(audio_path, ID3=ID3)
+        audio = MP3(mp3_target_file, ID3=ID3)
         # adding ID3 tag if it is not present
         try:
             audio.add_tags()
