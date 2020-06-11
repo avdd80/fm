@@ -134,7 +134,7 @@ while True:
 
     if (is_wav2mp3_success):
 
-        tag_mp3 (mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, '/home/pi/fm/cover.jpg')
+        #tag_mp3 (mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, '/home/pi/fm/cover.jpg')
 
         is_upload_success = trigger_file_upload (mp3_target_file)
 
