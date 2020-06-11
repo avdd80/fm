@@ -5,8 +5,15 @@ import socket
 import re
 from time import sleep
 
-MONO_USB_AUDIO_REC_CMD = 'sudo arecord --device=hw:1,0 -c1 -f S16_LE -V mono -r 44100 -d '
+
+# COMMON ###################################################
+
+# SAN DIEGO ################################################
 STEREO_AUDIO_INJECTOR_REC_CMD = 'sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d '
+
+# BANGALORE ################################################
+MONO_USB_AUDIO_REC_CMD = 'sudo arecord --device=hw:1,0 -c1 -f S16_LE -V mono -r 44100 -d '
+
 TUNER_PATH = '/home/pi/Music/radio_tea5767/radio_tea5767'
 ROOT_PATH = '/home/pi/Music/fm_db/'
 SCHED_PATH_F = '/home/pi/Music/schedule.txt'
