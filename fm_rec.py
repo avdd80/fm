@@ -5,6 +5,8 @@ import socket
 import re
 from time import sleep
 
+RADIO_STATION='SAN DIEGO'
+#RADIO_STATION='BANGALORE'
 
 # COMMON ###################################################
 TUNER_PATH = '/home/pi/Music/radio_tea5767/radio_tea5767'
