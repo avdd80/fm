@@ -36,10 +36,12 @@ def load_config(config):
     global DROPBOX_DOWNLOAD_CMD
     global SCHED_PATH_F
     global FM_stations
-
+    print 'Load ' + config + ' config'
     if (config == 'SAN DIEGO'):
+        
         # SAN DIEGO ################################################
         REC_CMD = 'sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d '
+        print REC_CMD
         DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule.txt'
@@ -48,6 +50,7 @@ def load_config(config):
     elif (config == 'BANGALORE'):
         # BANGALORE ################################################
         REC_CMD = 'sudo arecord --device=hw:1,0 -c1 -f S16_LE -V mono -r 44100 -d '
+        print REC_CMD
         DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_blr_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule_blr.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule_blr.txt'
