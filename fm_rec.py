@@ -5,30 +5,53 @@ import socket
 import re
 from time import sleep
 
+############################################################
+# Only set this variable to change FM source location ######
+############################################################
 RADIO_STATION='SAN DIEGO'
 #RADIO_STATION='BANGALORE'
 
-# COMMON ###################################################
+############################################################
+# COMMON SETTINGS ##########################################
+############################################################
 TUNER_PATH = '/home/pi/Music/radio_tea5767/radio_tea5767'
 ROOT_PATH = '/home/pi/Music/fm_db/'
 DROPBOX_DELETE_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh delete /'
 DROPBOX_LIST_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list /'
 
+############################################################
+# LOCATION SPECIFIC SETTINGS ###############################
+############################################################
+REC_CMD = ''
+DROPBOX_DOWNLOAD_SCRIPT = ''
+DROPBOX_DOWNLOAD_CMD = ''
+SCHED_PATH_F = ''
 
-# SAN DIEGO ################################################
-STEREO_AUDIO_INJECTOR_REC_CMD = 'sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d '
-DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_schedule.sh'
-DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule.txt '
-SCHED_PATH_F = '/home/pi/Music/schedule.txt'
+FM_stations = {}
 
-FM_stations = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
 
-# BANGALORE ################################################
-#MONO_USB_AUDIO_REC_CMD = 'sudo arecord --device=hw:1,0 -c1 -f S16_LE -V mono -r 44100 -d '
-#DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_blr_schedule.sh'
-#DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule_blr.txt '
-#SCHED_PATH_F = '/home/pi/Music/schedule_blr.txt'
-#FM_stations = {91.1: 'Radio City', 98.3: 'Radio Mirchi', 94.3: 'Radio One', 93.5: 'Red FM', 91.9: 'Radio Indigo', 92.7: 'Big FM', 104.0: 'Fever FM', 100.1: 'Amrutavarshini', 90.4: 'Radio Active(Jain)', 102.9: 'Vividh Bharati'}
+def load_config(config):
+    global REC_CMD
+    global DROPBOX_DOWNLOAD_SCRIPT
+    global DROPBOX_DOWNLOAD_CMD
+    global SCHED_PATH_F
+    global FM_stations
+
+    if (config == 'SAN DIEGO'):
+        # SAN DIEGO ################################################
+        REC_CMD = 'sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d '
+        DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_schedule.sh'
+        DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule.txt '
+        SCHED_PATH_F = '/home/pi/Music/schedule.txt'
+
+        FM_stations = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
+    elif (config == 'BANGALORE'):
+        # BANGALORE ################################################
+        REC_CMD = 'sudo arecord --device=hw:1,0 -c1 -f S16_LE -V mono -r 44100 -d '
+        DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_blr_schedule.sh'
+        DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule_blr.txt '
+        SCHED_PATH_F = '/home/pi/Music/schedule_blr.txt'
+        FM_stations = {91.1: 'Radio City', 98.3: 'Radio Mirchi', 94.3: 'Radio One', 93.5: 'Red FM', 91.9: 'Radio Indigo', 92.7: 'Big FM', 104.0: 'Fever FM', 100.1: 'Amrutavarshini', 90.4: 'Radio Active(Jain)', 102.9: 'Vividh Bharati'}
 
 
 
@@ -160,7 +183,7 @@ def record_fm_mins (target_wav_file, duration_mins):
 
     print 'Will record for ' + str(duration_mins) + ' minutes.'
     duration_secs = duration_mins * 60
-    subprocess.call (STEREO_AUDIO_INJECTOR_REC_CMD + str(duration_secs) + ' ' + target_wav_file, shell=True)
+    subprocess.call (REC_CMD + str(duration_secs) + ' ' + target_wav_file, shell=True)
     #subprocess.call ('sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d ' + str(duration_secs) + ' ' + target_wav_file, shell=True)
     print 'Record done!'
     if (os.path.exists(target_wav_file)):
@@ -219,10 +242,10 @@ def main ():
             tune_fm(tune_freq)
             print 'FM tuned to ' + str(tune_freq) + ' MHz\n'
             timenow = datetime.now()
-            #duration_mins = 60 - minute
-            duration_mins = 2
+            duration_mins = 60 - minute
+            #duration_mins = 2
             
-            if (duration_mins > 1):
+            if (duration_mins > 10):
             
                 print 'Record for ' + str(duration_mins) + ' minutes'
                 is_record_success = record_fm_mins (target_wav_file, duration_mins)
@@ -270,4 +293,6 @@ def main ():
 ###############################################################
 # Main Function Call
 ###############################################################
+load_config(RADIO_STATION)
+
 main()
