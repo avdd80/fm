@@ -15,7 +15,6 @@ RADIO_STATION='SAN DIEGO'
 # COMMON SETTINGS ##########################################
 ############################################################
 TUNER_PATH = '/home/pi/Music/radio_tea5767/radio_tea5767'
-ROOT_PATH = '/home/pi/Music/fm_db/'
 DROPBOX_DELETE_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh delete /'
 DROPBOX_LIST_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list /'
 
@@ -26,7 +25,7 @@ REC_CMD = ''
 DROPBOX_DOWNLOAD_SCRIPT = ''
 DROPBOX_DOWNLOAD_CMD = ''
 SCHED_PATH_F = ''
-
+ROOT_PATH = ''
 FM_stations = {}
 
 
@@ -36,6 +35,7 @@ def load_config(config):
     global DROPBOX_DOWNLOAD_CMD
     global SCHED_PATH_F
     global FM_stations
+    global ROOT_PATH
     print 'Load ' + config + ' config'
     if (config == 'SAN DIEGO'):
         
@@ -45,6 +45,7 @@ def load_config(config):
         DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule.txt'
+        ROOT_PATH = '/home/pi/Music/fm_db/san/'
 
         FM_stations = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
     elif (config == 'BANGALORE'):
@@ -54,9 +55,8 @@ def load_config(config):
         DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_blr_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule_blr.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule_blr.txt'
+        ROOT_PATH = '/home/pi/Music/fm_db/blr/'
         FM_stations = {91.1: 'Radio City', 98.3: 'Radio Mirchi', 94.3: 'Radio One', 93.5: 'Red FM', 91.9: 'Radio Indigo', 92.7: 'Big FM', 104.0: 'Fever FM', 100.1: 'Amrutavarshini', 90.4: 'Radio Active(Jain)', 102.9: 'Vividh Bharati'}
-
-
 
 def get_tune_freq ():
 
