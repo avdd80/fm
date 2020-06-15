@@ -282,8 +282,8 @@ def main ():
                     # Download requested recording schedule
                     download_schedule ()
                 else:
-                    print 'Record failed. Wait 60 seconds...'
-                    sleep (60)
+                    print 'Record failed. Wait 10 seconds...'
+                    sleep (10)
             else:
                 print 'Record duration too short (' + str(duration_mins) + ' minutes). Skipping current record. Wait 60 seconds...'
                 sleep (60)
