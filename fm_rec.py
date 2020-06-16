@@ -240,6 +240,7 @@ def main ():
         timenow = datetime.now()
         hour = timenow.hour
         minute = timenow.minute
+        f = open("/home/pi/fm/fm.log", "a")
         f.write(str(hour) + ":" + str(minute) + " Tune freq = " + str(tune_freq))
         f.close()
 
@@ -262,6 +263,10 @@ def main ():
             #duration_mins = 2
             
             if (duration_mins > 10):
+            
+                f = open("/home/pi/fm/fm.log", "a")
+                f.write(str(hour) + ":" + str(minute) + "Record for " + str(duration_mins) + " minutes")
+                f.close()
             
                 print 'Record for ' + str(duration_mins) + ' minutes'
                 is_record_success = record_fm_mins (target_wav_file, duration_mins)
@@ -295,13 +300,23 @@ def main ():
                     # Download requested recording schedule
                     download_schedule ()
                 else:
+                    f = open("/home/pi/fm/fm.log", "a")
+                    f.write(str(hour) + ":" + str(minute) + "Record failed. Wait 10 seconds...")
+                    f.close()
                     print 'Record failed. Wait 10 seconds...'
                     sleep (10)
             else:
+
+                f = open("/home/pi/fm/fm.log", "a")
+                f.write(str(hour) + ":" + str(minute) + "Record duration too short (" + str(duration_mins) + " minutes). Skipping current record. Wait 60 seconds...")
+                f.close()
                 print 'Record duration too short (' + str(duration_mins) + ' minutes). Skipping current record. Wait 60 seconds...'
                 sleep (60)
         else:
             print 'No recording. Wait 60 seconds...'
+            f = open("/home/pi/fm/fm.log", "a")
+            f.write(str(hour) + ":" + str(minute) + "No recording. Wait 60 seconds...")
+            f.close()
             sleep (60)
 
     #else:
