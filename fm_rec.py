@@ -233,8 +233,16 @@ def main ():
         is_record_success = 0
 
         tune_freq = get_tune_freq ()
-        f.write("Tune freq = " + tune_freq)
+
+        
+        
+        
+        timenow = datetime.now()
+        hour = timenow.hour
+        minute = timenow.minute
+        f.write(str(hour) + ":" + str(minute) + " Tune freq = " + str(tune_freq))
         f.close()
+
         if (tune_freq > 0):
             timenow = datetime.now()
             hour = timenow.hour
