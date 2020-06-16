@@ -241,7 +241,7 @@ def main ():
         hour = timenow.hour
         minute = timenow.minute
         f = open("/home/pi/fm/fm.log", "a")
-        f.write(str(hour) + ":" + str(minute) + " Tune freq = " + str(tune_freq))
+        f.write(str(hour) + ":" + str(minute) + " Tune freq = " + str(tune_freq) + "\n")
         f.close()
 
         if (tune_freq > 0):
@@ -265,7 +265,7 @@ def main ():
             if (duration_mins > 10):
             
                 f = open("/home/pi/fm/fm.log", "a")
-                f.write(str(hour) + ":" + str(minute) + "Record for " + str(duration_mins) + " minutes")
+                f.write(str(hour) + ":" + str(minute) + "Record for " + str(duration_mins) + " minutes\n")
                 f.close()
             
                 print 'Record for ' + str(duration_mins) + ' minutes'
@@ -301,21 +301,21 @@ def main ():
                     download_schedule ()
                 else:
                     f = open("/home/pi/fm/fm.log", "a")
-                    f.write(str(hour) + ":" + str(minute) + "Record failed. Wait 10 seconds...")
+                    f.write(str(hour) + ":" + str(minute) + "Record failed. Wait 10 seconds...\n")
                     f.close()
                     print 'Record failed. Wait 10 seconds...'
                     sleep (10)
             else:
 
                 f = open("/home/pi/fm/fm.log", "a")
-                f.write(str(hour) + ":" + str(minute) + "Record duration too short (" + str(duration_mins) + " minutes). Skipping current record. Wait 60 seconds...")
+                f.write(str(hour) + ":" + str(minute) + "Record duration too short (" + str(duration_mins) + " minutes). Skipping current record. Wait 60 seconds...\n")
                 f.close()
                 print 'Record duration too short (' + str(duration_mins) + ' minutes). Skipping current record. Wait 60 seconds...'
                 sleep (60)
         else:
             print 'No recording. Wait 60 seconds...'
             f = open("/home/pi/fm/fm.log", "a")
-            f.write(str(hour) + ":" + str(minute) + "No recording. Wait 60 seconds...")
+            f.write(str(hour) + ":" + str(minute) + "No recording. Wait 60 seconds...\n")
             f.close()
             sleep (60)
 
