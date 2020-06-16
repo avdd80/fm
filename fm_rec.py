@@ -223,13 +223,18 @@ def main ():
     global ROOT_PATH
     loop = 1
     
+    f = open("/home/pi/fm/fm.log", "w")
+    f.write("Log begin\n")
+    
+    
     while loop:
         #loop = 0
         target_wav_file = ''
         is_record_success = 0
 
         tune_freq = get_tune_freq ()
-
+        f.write("Tune freq = " + tune_freq)
+        f.close()
         if (tune_freq > 0):
             timenow = datetime.now()
             hour = timenow.hour
