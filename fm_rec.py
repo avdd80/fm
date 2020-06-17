@@ -65,6 +65,8 @@ def get_tune_freq ():
     ret_val = 0 # Radio off
     timenow = datetime.now();
 
+    if (not os.path.exists(SCHED_PATH_F)):
+        download_schedule ()
     sched_fp = open(SCHED_PATH_F, 'r')
     log_lines = sched_fp.read().split("\n")
     sched_fp.close()
