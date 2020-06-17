@@ -56,7 +56,7 @@ def load_config(config):
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule_blr.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule_blr.txt'
         ROOT_PATH = '/home/pi/Music/fm_db/blr/'
-        FM_stations = {91.1: 'Radio City', 98.3: 'Radio Mirchi', 94.3: 'Radio One', 93.5: 'Red FM', 91.9: 'Radio Indigo', 92.7: 'Big FM', 104.0: 'Fever FM', 100.1: 'Amrutavarshini', 90.4: 'Radio Active(Jain)', 102.9: 'Vividh Bharati'}
+        FM_stations = {91.1: 'Radio_City', 98.3: 'Radio_Mirchi', 94.3: 'Radio_One', 93.5: 'Red_FM', 91.9: 'Radio_Indigo', 92.7: 'Big_FM', 104.0: 'Fever_FM', 100.1: 'Amrutavarshini', 90.4: 'Radio_Active_Jain', 102.9: 'Vividh_Bharati'}
 
 def get_tune_freq ():
 
