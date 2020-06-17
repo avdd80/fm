@@ -180,6 +180,8 @@ def download_schedule ():
     
 
 def record_fm_mins (target_wav_file, duration_mins):
+    
+    global REC_CMD
 
     if (os.path.exists(target_wav_file)):
         print ('Deleting existing wav file:')
@@ -254,6 +256,7 @@ def main ():
             if (hour == 0):
                 formatted_hour = '0000'
             target_wav_file = ROOT_PATH + 'wav/' + formatted_hour + '_' + get_station_name(tune_freq) + '.wav'
+            print target_wav_file
             target_mp3_file = ROOT_PATH + 'mp3/' + formatted_hour + '_' + get_station_name(tune_freq) + '.mp3'
             if os.path.exists(target_wav_file):
                 os.remove(target_wav_file)
