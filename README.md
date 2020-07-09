@@ -1,5 +1,11 @@
 # fm
 
+Setup Audio Injector:
+
+  1. Connect audio injector to Raspberry pi header
+  2. Remove line "dtparam=audio=on" from /boot/config.txt
+  3. In the same section, add "dtoverlay=audioinjector-wm8731-audio"
+
 Dependencies:
 
   1. Dropbox Uploader 
@@ -12,5 +18,6 @@ Dependencies:
   
   3. MP3 Tagging Software
   sudo apt-get install -y libid3-tools
+  
   
   
