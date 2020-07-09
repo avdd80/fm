@@ -4,8 +4,8 @@ import shlex
 import os
 from datetime import *
 from time import sleep
-from mutagen.mp3 import MP3
-from mutagen.id3 import ID3, APIC, error
+#from mutagen.mp3 import MP3
+#from mutagen.id3 import ID3, APIC, error
 
 UDP_IP = "127.0.0.1"
 
