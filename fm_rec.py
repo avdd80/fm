@@ -21,7 +21,7 @@ DROPBOX_LIST_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list
 ############################################################
 # LOCATION SPECIFIC SETTINGS ###############################
 ############################################################
-REC_CMD = ''
+REC_CMD = 'sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d '
 DROPBOX_DOWNLOAD_SCRIPT = ''
 DROPBOX_DOWNLOAD_CMD = ''
 SCHED_PATH_F = ''
@@ -40,7 +40,6 @@ def load_config(config):
     if (config == 'SAN DIEGO'):
         
         # SAN DIEGO ################################################
-        REC_CMD = 'sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d '
         print REC_CMD
         DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule.txt '
@@ -50,7 +49,6 @@ def load_config(config):
         FM_stations = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
     elif (config == 'BANGALORE'):
         # BANGALORE ################################################
-        REC_CMD = 'sudo arecord --device=hw:1,0 -c1 -f S16_LE -V mono -r 44100 -d '
         print REC_CMD
         DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_blr_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule_blr.txt '
