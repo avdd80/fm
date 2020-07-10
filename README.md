@@ -20,7 +20,10 @@ Dependencies:
   Install in /home/pi/Downloads
   Compile a binary using command "sudo make all" inside /home/pi/Downloads/radio_tea5767
   
-  3. MP3 Tagging Software (optional)
+  3. LAME MP3 encoding software
+  sudo apt-get install lame
+  
+  4. MP3 Tagging Software (optional)
   sudo apt-get install -y libid3-tools
   
   
