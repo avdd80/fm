@@ -256,6 +256,8 @@ def main ():
             target_wav_file = ROOT_PATH + 'wav/' + formatted_hour + '_' + get_station_name(tune_freq) + '.wav'
             print target_wav_file
             target_mp3_file = ROOT_PATH + 'mp3/' + formatted_hour + '_' + get_station_name(tune_freq) + '.mp3'
+            print target_wav_file
+            print target_mp3_file
             if os.path.exists(target_wav_file):
                 os.remove(target_wav_file)
             print 'Tuning FM...'
