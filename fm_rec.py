@@ -215,7 +215,7 @@ def get_station_name (freq):
 
     global FM_stations
     # Default name
-    station_name = str(freq) + ' MHz'
+    station_name = str(freq) + 'MHz'
     if freq in FM_stations:
         station_name = FM_stations[freq]
     return station_name
