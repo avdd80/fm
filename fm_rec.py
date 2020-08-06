@@ -66,15 +66,18 @@ def get_tune_freq ():
     if (not os.path.exists(SCHED_PATH_F)):
         download_schedule ()
     sched_fp = open(SCHED_PATH_F, 'r')
-    log_lines = sched_fp.read().split("\n")
+    sched_lines = sched_fp.read().split("\n")
     sched_fp.close()
 
     if (timenow.minute < 59):
         ret_val = 1
 
+    print sched_lines
+    print timenow.hour
+        
     # Extract station frequency
-    if ((log_lines[timenow.hour] > 0) and ret_val == 1):
-        temp = log_lines[timenow.hour].split(',')
+    if ((sched_lines[timenow.hour] > 0) and ret_val == 1):
+        temp = sched_lines[timenow.hour].split(',')
 
         ret_val = temp[1]
         print 'Read station: ' + ret_val
