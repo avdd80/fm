@@ -17,6 +17,7 @@ RADIO_STATION='BANGALORE'
 TUNER_PATH = '/home/pi/Music/radio_tea5767/radio_tea5767'
 DROPBOX_DELETE_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh delete /'
 DROPBOX_LIST_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list /'
+MUSIC_DB         = '/home/pi/Music/fm_db/'
 
 ############################################################
 # LOCATION SPECIFIC SETTINGS ###############################
@@ -44,7 +45,7 @@ def load_config(config):
         DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule.txt'
-        ROOT_PATH = '/home/pi/Music/fm_db/san/'
+        ROOT_PATH = MUSIC_DB + 'san/'
 
         FM_stations = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
     elif (config == 'BANGALORE'):
@@ -53,9 +54,25 @@ def load_config(config):
         DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_blr_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule_blr.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule_blr.txt'
-        ROOT_PATH = '/home/pi/Music/fm_db/blr/'
+        ROOT_PATH = MUSIC_DB + 'blr/'
         FM_stations = {91.1: 'Radio_City', 98.3: 'Radio_Mirchi', 94.3: 'Radio_One', 93.5: 'Red_FM', 91.9: 'Radio_Indigo', 92.7: 'Big_FM', 104.0: 'Fever_FM', 100.1: 'Amrutavarshini', 90.4: 'Radio_Active_Jain', 102.9: 'Vividh_Bharati'}
 
+        
+def setup():
+    global ROOT_PATH
+    global MUSIC_DB
+    global SCHED_PATH_F
+
+    if (not os.path.exists(ROOT_PATH)):
+        if (not os.path.exists(MUSIC_DB)):
+            os.mkdir(MUSIC_DB)
+        os.mkdir(ROOT_PATH)
+        os.mkdir(ROOT_PATH+'wav')
+        os.mkdir(ROOT_PATH+'mp3')
+    if (not os.path.exists(SCHED_PATH_F)):
+        download_schedule ()
+        
+            
 def get_tune_freq ():
 
     global SCHED_PATH_F
@@ -231,6 +248,7 @@ def main ():
     f = open("/home/pi/fm/fm.log", "w")
     f.write("Log begin\n")
     
+    setup()
     
     while loop:
         #loop = 0
