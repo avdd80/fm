@@ -2,9 +2,9 @@
 
 Setup Audio Injector:
 
-  1. Connect audio injector to Raspberry pi header
+  1. Connect audio injector or HifiBerry DAC+ADC to Raspberry pi header
   2. Remove line "dtparam=audio=on" from /boot/config.txt
-  3. In the same section, add "dtoverlay=audioinjector-wm8731-audio"
+  3. In the same section, add "dtoverlay=audioinjector-wm8731-audio" for audio injector and "dtoverlay=hifiberry-dacplusadc" for HifiBerry DAC+ADC
   4. Reboot Raspberry Pi and check if the soundcard is detected using "arecord -l"
 
 Dependencies:
