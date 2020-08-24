@@ -8,8 +8,8 @@ from time import sleep
 ############################################################
 # Only set this variable to change FM source location ######
 ############################################################
-#RADIO_STATION='SAN DIEGO'
-RADIO_STATION='BANGALORE'
+RADIO_STATION='SAN DIEGO'
+#RADIO_STATION='BANGALORE'
 
 ############################################################
 # COMMON SETTINGS ##########################################
