@@ -10,13 +10,13 @@ Setup Audio Injector:
 Dependencies:
 
   1. Dropbox Uploader 
-  https://github.com/andreafabrizi/Dropbox-Uploader
+  sudo git clone https://github.com/andreafabrizi/Dropbox-Uploader
   Install in /home/pi/Downloads
   
   Create a dropbox account, get access token from https://www.dropbox.com/developers/apps
   
   2. TEA5767 Driver
-  https://github.com/kjnam100/radio_tea5767
+  sudo git clone https://github.com/kjnam100/radio_tea5767
   Install in /home/pi/Downloads
   Compile a binary using command "sudo make all" inside /home/pi/Downloads/radio_tea5767
   
