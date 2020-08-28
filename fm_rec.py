@@ -20,9 +20,13 @@ DROPBOX_LIST_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list
 MUSIC_DB         = '/home/pi/Music/fm_db/'
 
 ############################################################
-# LOCATION SPECIFIC SETTINGS ###############################
+# AUDIO DRV SPECIFIC SETTINGS ##############################
 ############################################################
-REC_CMD = 'sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d '
+STEREO_RECORD_CMD = 'sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d '
+MONO_RECORD_CMD   = 'sudo arecord -c 1 -f S16_LE -r 44100 --device=hw:1,0 -d '
+REC_CMD = MONO_RECORD_CMD
+#REC_CMD = STEREO_RECORD_CMD
+
 DROPBOX_DOWNLOAD_SCRIPT = ''
 DROPBOX_DOWNLOAD_CMD = ''
 SCHED_PATH_F = ''
