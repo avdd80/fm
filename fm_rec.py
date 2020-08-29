@@ -31,6 +31,7 @@ DROPBOX_DOWNLOAD_SCRIPT = ''
 DROPBOX_DOWNLOAD_CMD = ''
 SCHED_PATH_F = ''
 ROOT_PATH = ''
+COVERART = ''
 FM_stations = {}
 
 
@@ -52,15 +53,26 @@ def load_config(config):
         ROOT_PATH = MUSIC_DB + 'san/'
 
         FM_stations = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
+        #CoverArt    = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
     elif (config == 'BANGALORE'):
         # BANGALORE ################################################
         print REC_CMD
         DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_blr_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule_blr.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule_blr.txt'
-        ROOT_PATH = MUSIC_DB + 'blr/'
+        ROOT_PATH   = MUSIC_DB + 'blr/'
+        COVER_ROOT  = '/home/pi/fm/coverart/blr/'
         FM_stations = {91.1: 'Radio_City', 98.3: 'Radio_Mirchi', 94.3: 'Radio_One', 93.5: 'Red_FM', 91.9: 'Radio_Indigo', 92.7: 'Big_FM', 104.0: 'Fever_FM', 100.1: 'Amrutavarshini', 90.4: 'Radio_Active_Jain', 102.9: 'Vividh_Bharati'}
-
+        CoverArt    = {91.1:  COVER_ROOT + 'Radio_City', 
+                       98.3:  COVER_ROOT + 'Radio_Mirchi',
+                       94.3:  COVER_ROOT + 'Radio_One', 
+                       93.5:  COVER_ROOT + 'Red_FM', 
+                       91.9:  COVER_ROOT + 'Radio_Indigo', 
+                       92.7:  COVER_ROOT + 'Big_FM', 
+                       104.0: COVER_ROOT + 'Fever_FM', 
+                       100.1: COVER_ROOT + 'Amrutavarshini', 
+                       90.4:  COVER_ROOT + 'Radio_Active_Jain', 
+                       102.9: COVER_ROOT + 'Vividh_Bharati'}
         
 def setup():
     global ROOT_PATH
@@ -76,7 +88,10 @@ def setup():
     if (not os.path.exists(SCHED_PATH_F)):
         download_schedule ()
         
-            
+
+def get_cover_art_path(freq)
+    cover_art_dict = 
+    {"91.1" : "
 def get_tune_freq ():
 
     global SCHED_PATH_F
@@ -260,10 +275,6 @@ def main ():
         is_record_success = 0
 
         tune_freq = get_tune_freq ()
-
-        
-        
-        
         timenow = datetime.now()
         hour = timenow.hour
         minute = timenow.minute
