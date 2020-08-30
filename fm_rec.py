@@ -62,15 +62,24 @@ def load_config(config):
         SCHED_PATH_F = '/home/pi/Music/schedule_blr.txt'
         ROOT_PATH   = MUSIC_DB + 'blr/'
         COVER_ROOT  = '/home/pi/fm/coverart/blr/'
-        FM_stations = {91.1: 'Radio_City', 98.3: 'Radio_Mirchi', 94.3: 'Radio_One', 93.5: 'Red_FM', 91.9: 'Radio_Indigo', 92.7: 'Big_FM', 104.0: 'Fever_FM', 100.1: 'Amrutavarshini', 90.4: 'Radio_Active_Jain', 102.9: 'Vividh_Bharati'}
+        FM_stations = {91.1: 'Radio_City', 
+                       98.3: 'Radio_Mirchi', 
+                       94.3: 'Radio_One', 
+                       93.5: 'Red_FM', 
+                       91.9: 'Radio_Indigo', 
+                       92.7: 'Big_FM', 
+                       104.0: 'Fever_FM', 
+                       100.1: 'Amrutavarshini', 
+                       90.4: 'Radio_Active_Jain', 
+                       102.9: 'Vividh_Bharati'}
         CoverArt    = {91.1:  COVER_ROOT + 'Radio_City', 
                        98.3:  COVER_ROOT + 'Radio_Mirchi',
                        94.3:  COVER_ROOT + 'Radio_One', 
                        93.5:  COVER_ROOT + 'Red_FM', 
-                       91.9:  COVER_ROOT + 'Radio_Indigo', 
-                       92.7:  COVER_ROOT + 'Big_FM', 
+                       91.9:  COVER_ROOT + 'Indigo.JPG', 
+                       92.7:  COVER_ROOT + 'BigFM.JPG', 
                        104.0: COVER_ROOT + 'Fever_FM', 
-                       100.1: COVER_ROOT + 'Amrutavarshini', 
+                       100.1: COVER_ROOT + 'Amrutavarshini.JPG', 
                        90.4:  COVER_ROOT + 'Radio_Active_Jain', 
                        102.9: COVER_ROOT + 'Vividh_Bharati'}
         
