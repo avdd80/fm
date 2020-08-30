@@ -148,7 +148,7 @@ while True:
     output = ps.communicate()[0]
     print(output)
 
-#    os.remove (wav_target_file)
+    os.remove (wav_target_file)
 
     if (is_wav2mp3_success):
 
@@ -156,7 +156,7 @@ while True:
 
         is_upload_success = trigger_file_upload (mp3_target_file)
 
-        #os.remove (mp3_target_file)
+        os.remove (mp3_target_file)
         #ps = subprocess.Popen('sudo rm -f ' + mp3_target_file , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         #output = ps.communicate()[0]
         #print(output)
