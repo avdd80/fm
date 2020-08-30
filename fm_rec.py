@@ -14,7 +14,7 @@ RADIO_STATION='BANGALORE'
 ############################################################
 # COMMON SETTINGS ##########################################
 ############################################################
-TUNER_PATH = '/home/pi/Music/radio_tea5767/radio_tea5767'
+TUNER_PATH = '/home/pi/Downloads/radio_tea5767/radio_tea5767'
 DROPBOX_DELETE_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh delete /'
 DROPBOX_LIST_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list /'
 MUSIC_DB         = '/home/pi/Music/fm_db/'
