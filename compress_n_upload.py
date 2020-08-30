@@ -18,8 +18,6 @@ DROPBOX_UPLOADER_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh 
 DROPBOX_LIST_CMD     = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list '
 MP3_TAG_CMD          = 'sudo /usr/bin/id3tag '
 
-
-
 # #################################################################
 def is_file_valid(filepath, extension): # input audio file path and extension (.xxx)
     if os.path.isfile(filepath) and filepath.endswith(extension):
@@ -29,7 +27,6 @@ def is_file_valid(filepath, extension): # input audio file path and extension (.
         return 0
 
 def tag_mp3(mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, cover_art_file):
-
 
     if (is_file_valid(mp3_target_file, 'mp3')):
 
@@ -78,7 +75,8 @@ def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
     cmd = cmd + ' --ta ' + artist
     cmd = cmd + ' --ty ' + year
     cmd = cmd + ' --tg ' + genre
-    cmd = cmd + ' --ti ' + cover_art
+    if (cover_art != ''):
+        cmd = cmd + ' --ti ' + cover_art
     cmd = cmd + ' ' + src
     cmd = cmd + ' ' + dest
     cmd = 'sudo lame ' +  src + ' ' + dest
@@ -93,8 +91,6 @@ def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
         is_success = 1
 
     return is_success
-
-
 
 
 def trigger_file_upload (filename):
