@@ -66,19 +66,28 @@ def tag_mp3 (mp3_target_file, album_value, song_value, artist_value, year_value,
     # Wait for sufficient amount of time to tag mp3 file.
     sleep (20)
 """
-
-def wav2mp3 (src, dest):
+    is_wav2mp3_success = wav2mp3 (wav_target_file, mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, cover_art_value)
+def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
 
     is_success = 0
 
     print 'WAV2MP3:'
+    cmd = 'sudo lame '
+    cmd = cmd + ' --tl ' + alb
+    cmd = cmd + ' --tt ' + song
+    cmd = cmd + ' --ta ' + artist
+    cmd = cmd + ' --ty ' + year
+    cmd = cmd + ' --tg ' + genre
+    cmd = cmd + ' --ti ' + cover_art
+    cmd = cmd + ' ' + src
+    cmd = cmd + ' ' + dest
     cmd = 'sudo lame ' +  src + ' ' + dest
     print cmd
     subprocess.call (cmd, shell=True)
     
     if (os.path.exists (dest)):
         # Remove Wav file
-        #os.remove (src)
+        os.remove (src)
 
         is_success = 1
 
@@ -120,13 +129,24 @@ while True:
     mp3_target_file = temp[1]
 
     ############### MP3 metadata ###############
-    album_value  = temp[2]
-    song_value   = temp[3]
-    artist_value = temp[4]
-    year_value   = temp[5]
-    genre_value  = temp[6]
+    album_value     = temp[2]
+    song_value      = temp[3]
+    artist_value    = temp[4]
+    year_value      = temp[5]
+    genre_value     = temp[6]
+    cover_art_value = temp[7]
 
-    is_wav2mp3_success = wav2mp3 (wav_target_file, mp3_target_file)
+    print ('Received UDP message with payload:')
+    print ('Wav file:  ' + wav_target_file)
+    print ('MP3 file:  ' + mp3_target_file)
+    print ('Album:     ' + album_value)
+    print ('Song:      ' + song_value)
+    print ('Artist:    ' + artist_value)
+    print ('Year:      ' + year_value)
+    print ('Genre:     ' + genre_value)
+    print ('Cover Art: ' + cover_art_value)
+
+    is_wav2mp3_success = wav2mp3 (wav_target_file, mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, cover_art_value)
     ps = subprocess.Popen('sudo rm -f ' + wav_target_file , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ps.communicate()[0]
     print(output)
