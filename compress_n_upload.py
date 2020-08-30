@@ -66,7 +66,7 @@ def tag_mp3 (mp3_target_file, album_value, song_value, artist_value, year_value,
     # Wait for sufficient amount of time to tag mp3 file.
     sleep (20)
 """
-    is_wav2mp3_success = wav2mp3 (wav_target_file, mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, cover_art_value)
+
 def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
 
     is_success = 0
@@ -82,6 +82,7 @@ def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
     cmd = cmd + ' ' + src
     cmd = cmd + ' ' + dest
     cmd = 'sudo lame ' +  src + ' ' + dest
+    print 'Wave -> MP3:'
     print cmd
     subprocess.call (cmd, shell=True)
     
