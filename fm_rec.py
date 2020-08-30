@@ -365,22 +365,22 @@ def main ():
                     ############### MP3 metadata ###############
                     #[Arg 0]                          [Arg 1]
                     udp_msg = target_wav_file + ',' + target_mp3_file + ','
-                    #[Arg 3]
+                    #[Arg 2]
                     album_value = get_station_name(tune_freq)
                     udp_msg = udp_msg + album_value + ','
-                    #[Arg 4]
+                    #[Arg 3]
                     song_value = formatted_hour + ':00 ' + get_station_name(tune_freq)
                     udp_msg = udp_msg + song_value + ','
-                    #[Arg 5]
+                    #[Arg 4]
                     artist_value = 'Abhijeet Deshpande'
                     udp_msg = udp_msg + artist_value + ','
-                    #[Arg 6]
+                    #[Arg 5]
                     year_value = str(timenow.year)
                     udp_msg = udp_msg + year_value + ','
-                    #[Arg 7]
+                    #[Arg 6]
                     genre_value  = 'Radio'
                     udp_msg = udp_msg + genre_value + ','
-                    #[Arg 8]
+                    #[Arg 7]
                     cover_art_path_value  = get_cover_art_path(tune_freq)
                     udp_msg = udp_msg + cover_art_path_value
                     
