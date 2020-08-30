@@ -92,7 +92,7 @@ def load_config(config):
                        93.5: 'Red_FM', 
                        91.9: 'Radio_Indigo', 
                        92.7: 'Big_FM',
-                       97.0: 'Radio_Girmit'
+                       97.0: 'Radio_Girmit',
                        104.0: 'Fever_FM', 
                        100.1: 'Amrutavarshini', 
                        101.3: 'Rainbow',
