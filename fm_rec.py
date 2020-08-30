@@ -165,7 +165,6 @@ def get_tune_freq ():
         print 'Read station: ' + ret_val
     else:
         ret_val = 0;
-
     return float(ret_val)
 
 
@@ -321,6 +320,8 @@ def main ():
         is_record_success = 0
 
         tune_freq = get_tune_freq ()
+        ############## HACK #############
+        tune_freq = 91.1
         timenow = datetime.now()
         hour = timenow.hour
         minute = timenow.minute
