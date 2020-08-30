@@ -31,8 +31,8 @@ DROPBOX_DOWNLOAD_SCRIPT = ''
 DROPBOX_DOWNLOAD_CMD = ''
 SCHED_PATH_F = ''
 ROOT_PATH = ''
-COVERART = ''
 FM_stations = {}
+CoverArt = {}
 
 
 def load_config(config):
@@ -51,9 +51,33 @@ def load_config(config):
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule.txt'
         ROOT_PATH = MUSIC_DB + 'san/'
-
-        FM_stations = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
-        #CoverArt    = {88.3: 'San_Diegos_Jazz', 89.5: 'NPR', 91.1: '91X_XETRA_FM', 93.3: 'Channel93_3', 94.1: 'Star94_1', 94.9: 'San_Diegos_Alternative', 95.7: 'KISSFM', 96.5: 'KYXY', 98.1: 'Sunny_98_1', 101.5: '101KGB_Classic_Rock', 102.9: 'Amor', 105.3: 'ROCK1053', 106.5: 'Que_Buena'}
+        COVER_ROOT  = '/home/pi/fm/coverart/san/'
+        FM_stations = {88.3: 'San_Diegos_Jazz',
+                       89.5: 'NPR', 
+                       91.1: '91X_XETRA_FM', 
+                       93.3: 'Channel93_3', 
+                       94.1: 'Star94_1', 
+                       94.9: 'San_Diegos_Alternative', 
+                       95.7: 'KISSFM', 
+                       96.5: 'KYXY', 
+                       98.1: 'Sunny_98_1', 
+                       101.5: '101KGB_Classic_Rock', 
+                       102.9: 'Amor', 
+                       105.3: 'ROCK1053', 
+                       106.5: 'Que_Buena'}
+        CoverArt    = {88.3: COVER_ROOT + 'san_fm.jpg',
+                       89.5: COVER_ROOT + 'san_fm.jpg',
+                       91.1: COVER_ROOT + 'san_fm.jpg',
+                       93.3: COVER_ROOT + 'san_fm.jpg',
+                       94.1: COVER_ROOT + 'san_fm.jpg',
+                       94.9: COVER_ROOT + 'san_fm.jpg',
+                       95.7: COVER_ROOT + 'san_fm.jpg',
+                       96.5: COVER_ROOT + 'san_fm.jpg',
+                       98.1: COVER_ROOT + 'san_fm.jpg',
+                       101.5: COVER_ROOT + 'san_fm.jpg',
+                       102.9: COVER_ROOT + 'san_fm.jpg',
+                       105.3: COVER_ROOT + 'san_fm.jpg',
+                       106.5: COVER_ROOT + 'san_fm.jpg'}
     elif (config == 'BANGALORE'):
         # BANGALORE ################################################
         print REC_CMD
@@ -67,21 +91,27 @@ def load_config(config):
                        94.3: 'Radio_One', 
                        93.5: 'Red_FM', 
                        91.9: 'Radio_Indigo', 
-                       92.7: 'Big_FM', 
+                       92.7: 'Big_FM',
+                       97.0: 'Radio_Girmit'
                        104.0: 'Fever_FM', 
                        100.1: 'Amrutavarshini', 
+                       101.3: 'Rainbow',
                        90.4: 'Radio_Active_Jain', 
-                       102.9: 'Vividh_Bharati'}
-        CoverArt    = {91.1:  COVER_ROOT + 'Radio_City', 
-                       98.3:  COVER_ROOT + 'Radio_Mirchi',
-                       94.3:  COVER_ROOT + 'Radio_One', 
-                       93.5:  COVER_ROOT + 'Red_FM', 
+                       102.9: 'Vividh_Bharati',
+                       105.6: 'GyanVani'}
+        CoverArt    = {91.1:  COVER_ROOT + 'RadioCity.png', 
+                       98.3:  COVER_ROOT + 'RadioMirchi.jpg',
+                       94.3:  COVER_ROOT + 'RadioOne.JPG', 
+                       93.5:  COVER_ROOT + 'RedFM.png', 
                        91.9:  COVER_ROOT + 'Indigo.JPG', 
                        92.7:  COVER_ROOT + 'BigFM.JPG', 
-                       104.0: COVER_ROOT + 'Fever_FM', 
+                       97.0:  COVER_ROOT + 'RadioGirmit.PNG',
+                       104.0: COVER_ROOT + 'Fever.png', 
                        100.1: COVER_ROOT + 'Amrutavarshini.JPG', 
-                       90.4:  COVER_ROOT + 'Radio_Active_Jain', 
-                       102.9: COVER_ROOT + 'Vividh_Bharati'}
+                       101.3: COVER_ROOT + 'FMRainbow.JPG', 
+                       90.4:  COVER_ROOT + 'RadioActive.png', 
+                       102.9: COVER_ROOT + 'Aakashvani.png',
+                       105.6: COVER_ROOT + 'GyanVani.JPG'}
         
 def setup():
     global ROOT_PATH
@@ -98,9 +128,15 @@ def setup():
         download_schedule ()
         
 
-def get_cover_art_path(freq)
-    cover_art_dict = 
-    {"91.1" : "
+def get_cover_art_path (freq):
+
+    global CoverArt
+    # Default empty name
+    cover_art_path = ''
+    if freq in CoverArt:
+        cover_art_path = CoverArt[freq]
+    return cover_art_path
+
 def get_tune_freq ():
 
     global SCHED_PATH_F
@@ -327,23 +363,29 @@ def main ():
                     delete_remote_file (hour)
 
                     ############### MP3 metadata ###############
+                    #[Arg 0]                          [Arg 1]
                     udp_msg = target_wav_file + ',' + target_mp3_file + ','
-
+                    #[Arg 3]
                     album_value = get_station_name(tune_freq)
                     udp_msg = udp_msg + album_value + ','
-
+                    #[Arg 4]
                     song_value = formatted_hour + ':00 ' + get_station_name(tune_freq)
                     udp_msg = udp_msg + song_value + ','
-
+                    #[Arg 5]
                     artist_value = 'Abhijeet Deshpande'
                     udp_msg = udp_msg + artist_value + ','
-
+                    #[Arg 6]
                     year_value = str(timenow.year)
                     udp_msg = udp_msg + year_value + ','
-
+                    #[Arg 7]
                     genre_value  = 'Radio'
-                    udp_msg = udp_msg + genre_value
-
+                    udp_msg = udp_msg + genre_value + ','
+                    #[Arg 8]
+                    cover_art_path_value  = get_cover_art_path(tune_freq)
+                    udp_msg = udp_msg + cover_art_path_value
+                    
+                    print ('Sending UDP message for coversion:')
+                    print (udp_msg)
                     send_udp_message (udp_msg)
                     print 'Record success'
 
