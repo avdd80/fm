@@ -79,7 +79,6 @@ def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
         cmd = cmd + ' --ti ' + cover_art
     cmd = cmd + ' ' + src
     cmd = cmd + ' ' + dest
-    cmd = 'sudo lame ' +  src + ' ' + dest
     print 'Wave -> MP3:'
     print cmd
     subprocess.call (cmd, shell=True)
