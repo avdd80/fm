@@ -42,6 +42,7 @@ def load_config(config):
     global SCHED_PATH_F
     global FM_stations
     global ROOT_PATH
+    global CoverArt
     print 'Load ' + config + ' config'
     if (config == 'SAN DIEGO'):
         
