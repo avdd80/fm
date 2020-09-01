@@ -66,17 +66,17 @@ def load_config(config):
                        102.9: 'Amor', 
                        105.3: 'ROCK1053', 
                        106.5: 'Que_Buena'}
-        CoverArt    = {88.3: COVER_ROOT + 'san_fm.jpg',
+        CoverArt    = {88.3: COVER_ROOT + 'Jazz.jpg',
                        89.5: COVER_ROOT + 'san_fm.jpg',
                        91.1: COVER_ROOT + 'san_fm.jpg',
                        93.3: COVER_ROOT + 'san_fm.jpg',
-                       94.1: COVER_ROOT + 'san_fm.jpg',
+                       94.1: COVER_ROOT + 'Star.jpg',
                        94.9: COVER_ROOT + 'san_fm.jpg',
-                       95.7: COVER_ROOT + 'san_fm.jpg',
+                       95.7: COVER_ROOT + 'KissFM.jpg',
                        96.5: COVER_ROOT + 'san_fm.jpg',
-                       98.1: COVER_ROOT + 'san_fm.jpg',
-                       101.5: COVER_ROOT + 'san_fm.jpg',
-                       102.9: COVER_ROOT + 'san_fm.jpg',
+                       98.1: COVER_ROOT + 'Sunny.jpg',
+                       101.5: COVER_ROOT + 'KGB.jpg',
+                       102.9: COVER_ROOT + 'Amor.jpg',
                        105.3: COVER_ROOT + 'san_fm.jpg',
                        106.5: COVER_ROOT + 'san_fm.jpg'}
     elif (config == 'BANGALORE'):
