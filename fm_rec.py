@@ -232,8 +232,11 @@ def delete_remote_file (hour):
                     
                 # If a matching file is found, delete it
                 if ('mp3' in filename):
-                    print 'Deleting remote file (cmd commented) ' + filename
-                    subprocess.call (DROPBOX_DELETE_CMD + filename)
+                    print 'Deleting remote file: ' + filename
+                    #subprocess.call (DROPBOX_DELETE_CMD + filename)
+                    ps = subprocess.Popen(DROPBOX_DELETE_CMD + filename, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                    output = ps.communicate()[0]
+                    print(output)
                 else:
                     print ('Found garbage on remote:\nFile: ' + filename + '\nCannot delete remote file!\n')
             else:
