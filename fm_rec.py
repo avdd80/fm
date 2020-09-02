@@ -6,26 +6,32 @@ import re
 from time import sleep
 
 ############################################################
+# SET BY USER ##############################################
 # Only set this variable to change FM source location ######
 ############################################################
 #RADIO_STATION='SAN DIEGO'
 RADIO_STATION='BANGALORE'
-
 ############################################################
+# DO NOT MODIFY ############################################
+# RECORD COMMANDS ##########################################
+############################################################
+STEREO_RECORD_CMD = 'sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d '
+MONO_RECORD_CMD   = 'sudo arecord -c 1 -f S16_LE -r 44100 --device=hw:1,0 -d '
+############################################################
+# SET BY USER ##############################################
+# SOUNDCARD TYPE ###########################################
+############################################################
+#REC_CMD = MONO_RECORD_CMD
+REC_CMD = STEREO_RECORD_CMD
+############################################################
+# DO NOT MODIFY ############################################
 # COMMON SETTINGS ##########################################
 ############################################################
 TUNER_PATH = '/home/pi/Downloads/radio_tea5767/radio_tea5767'
 DROPBOX_DELETE_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh delete /'
 DROPBOX_LIST_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list /'
 MUSIC_DB         = '/home/pi/Music/fm_db/'
-
 ############################################################
-# AUDIO DRV SPECIFIC SETTINGS ##############################
-############################################################
-STEREO_RECORD_CMD = 'sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d '
-MONO_RECORD_CMD   = 'sudo arecord -c 1 -f S16_LE -r 44100 --device=hw:1,0 -d '
-REC_CMD = MONO_RECORD_CMD
-#REC_CMD = STEREO_RECORD_CMD
 
 DROPBOX_DOWNLOAD_SCRIPT = ''
 DROPBOX_DOWNLOAD_CMD = ''
@@ -214,7 +220,7 @@ def delete_remote_file (hour):
                 i += 1
             print 'Found file at index ' + str(i) + '\n'
 
-            # The first list of the list command result does not contain filename. If
+            # The first line of the list command result does not contain filename. If
             # i has not incremented beyond 0, no file on remote dir is found. 
             if (i > 0 and i < length):
            
@@ -227,7 +233,7 @@ def delete_remote_file (hour):
                 # If a matching file is found, delete it
                 if ('mp3' in filename):
                     print 'Deleting remote file (cmd commented) ' + filename
-    #                subprocess.call (DROPBOX_DELETE_CMD + filename)
+                    subprocess.call (DROPBOX_DELETE_CMD + filename)
                 else:
                     print ('Found garbage on remote:\nFile: ' + filename + '\nCannot delete remote file!\n')
             else:
