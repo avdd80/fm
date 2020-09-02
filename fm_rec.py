@@ -163,8 +163,8 @@ def get_tune_freq ():
     if (timenow.minute < 59):
         ret_val = 1
 
-    print sched_lines[1:24]
-    print 'Recording hour: ' + timenow.hour + ':00'
+    print sched_lines[0:24]
+    print 'Recording hour: ' + str(timenow.hour) + ':00'
         
     # Extract station frequency
     if ((sched_lines[timenow.hour] > 0) and ret_val == 1):
