@@ -90,7 +90,6 @@ def load_config(config):
                        106.5: COVER_ROOT + 'san_fm.jpg'}
     elif (config == 'BANGALORE'):
         # BANGALORE ################################################
-        print REC_CMD
         DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_blr_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule_blr.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule_blr.txt'
@@ -122,6 +121,7 @@ def load_config(config):
                        90.4:  COVER_ROOT + 'RadioActive.png', 
                        102.9: COVER_ROOT + 'Aakashvani.png',
                        105.6: COVER_ROOT + 'GyanVani.JPG'}
+    print 'Record command: ' + REC_CMD
         
 def setup():
     global ROOT_PATH
@@ -163,15 +163,15 @@ def get_tune_freq ():
     if (timenow.minute < 59):
         ret_val = 1
 
-    print sched_lines
-    print timenow.hour
+    print sched_lines[1:24]
+    print 'Recording hour: ' + timenow.hour + ':00'
         
     # Extract station frequency
     if ((sched_lines[timenow.hour] > 0) and ret_val == 1):
         temp = sched_lines[timenow.hour].split(',')
 
         ret_val = temp[1]
-        print 'Read station: ' + ret_val
+        print 'Read station: ' + ret_val + ' MHz'
     else:
         ret_val = 0;
     return float(ret_val)
@@ -279,8 +279,8 @@ def record_fm_mins (target_wav_file, duration_mins):
 
     if (os.path.exists(target_wav_file)):
         print ('Deleting existing wav file:')
-        os.remove (target_wav_file)
         print target_wav_file
+        os.remove (target_wav_file)
 
     print 'Will record for ' + str(duration_mins) + ' minutes.'
     duration_secs = duration_mins * 60
@@ -347,12 +347,13 @@ def main ():
             if (hour == 0):
                 formatted_hour = '0000'
             target_wav_file = ROOT_PATH + 'wav/' + formatted_hour + '_' + get_station_name(tune_freq) + '.wav'
-            print target_wav_file
             target_mp3_file = ROOT_PATH + 'mp3/' + formatted_hour + '_' + get_station_name(tune_freq) + '.mp3'
-            print target_wav_file
-            print target_mp3_file
+            print 'Target wave file: ' + target_wav_file
+            print 'Target mp3 file:  ' + target_mp3_file
             if os.path.exists(target_wav_file):
                 os.remove(target_wav_file)
+            if os.path.exists(target_mp3_file):
+                os.remove(target_mp3_file)
             print 'Tuning FM...'
             tune_fm(tune_freq)
             print 'FM tuned to ' + str(tune_freq) + ' MHz\n'
