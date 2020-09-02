@@ -144,11 +144,11 @@ while True:
     print ('Cover Art: ' + cover_art_value)
 
     is_wav2mp3_success = wav2mp3 (wav_target_file, mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, cover_art_value)
+    
+    # Delete wave file
     ps = subprocess.Popen('sudo rm -f ' + wav_target_file , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ps.communicate()[0]
     print(output)
-
-    os.remove (wav_target_file)
 
     if (is_wav2mp3_success):
 
@@ -156,7 +156,7 @@ while True:
 
         is_upload_success = trigger_file_upload (mp3_target_file)
 
-        os.remove (mp3_target_file)
-        #ps = subprocess.Popen('sudo rm -f ' + mp3_target_file , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        #output = ps.communicate()[0]
-        #print(output)
+        #os.remove (mp3_target_file)
+        ps = subprocess.Popen('sudo rm -f ' + mp3_target_file , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        output = ps.communicate()[0]
+        print(output)
