@@ -131,8 +131,8 @@ def setup():
         os.mkdir(ROOT_PATH)
         os.mkdir(ROOT_PATH+'wav')
         os.mkdir(ROOT_PATH+'mp3')
-    if (not os.path.exists(SCHED_PATH_F)):
-        download_schedule ()
+#    if (not os.path.exists(SCHED_PATH_F)):
+    download_schedule ()
         
 
 def get_cover_art_path (freq):
