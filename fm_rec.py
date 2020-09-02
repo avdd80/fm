@@ -37,8 +37,10 @@ DROPBOX_DOWNLOAD_SCRIPT = ''
 DROPBOX_DOWNLOAD_CMD = ''
 SCHED_PATH_F = ''
 ROOT_PATH = ''
+COVER_ROOT = ''
 FM_stations = {}
 CoverArt = {}
+
 
 
 def load_config(config):
@@ -49,6 +51,7 @@ def load_config(config):
     global FM_stations
     global ROOT_PATH
     global CoverArt
+    global COVER_ROOT
     print 'Load ' + config + ' config'
     if (config == 'SAN DIEGO'):
         
@@ -136,7 +139,7 @@ def setup():
         
 
 def get_cover_art_path (freq):
-
+    global COVER_ROOT
     global CoverArt
     # Default empty name
     cover_art_path = COVER_ROOT + 'default.jpeg'
