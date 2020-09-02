@@ -86,6 +86,7 @@ def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
     
     if (os.path.exists (dest)):
         # Remove Wav file
+        print ('Deleting src file....')
         os.remove (src)
 
         is_success = 1
@@ -146,6 +147,7 @@ while True:
     is_wav2mp3_success = wav2mp3 (wav_target_file, mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, cover_art_value)
     
     # Delete wave file
+    print ('Deleting wav file...')
     ps = subprocess.Popen('sudo rm -f ' + wav_target_file , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ps.communicate()[0]
     print(output)
@@ -155,8 +157,16 @@ while True:
         #tag_mp3 (mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, '/home/pi/fm/cover.jpg')
 
         is_upload_success = trigger_file_upload (mp3_target_file)
+        
+        if (is_upload_success):
+            print 'Dropbox upload success'
+        else:
+            print 'Dropbox upload failed.'
 
         #os.remove (mp3_target_file)
+        print ('Deleting mp3 file...')
         ps = subprocess.Popen('sudo rm -f ' + mp3_target_file , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         output = ps.communicate()[0]
         print(output)
+    else:
+        print ('mp3 conversion failed!')
