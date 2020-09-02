@@ -139,7 +139,7 @@ def get_cover_art_path (freq):
 
     global CoverArt
     # Default empty name
-    cover_art_path = ''
+    cover_art_path = COVER_ROOT + 'default.jpeg'
     if freq in CoverArt:
         cover_art_path = CoverArt[freq]
     return cover_art_path
