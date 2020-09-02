@@ -380,7 +380,7 @@ def main ():
                     album_value = get_station_name(tune_freq)
                     udp_msg = udp_msg + album_value + ','
                     #[Arg 3]
-                    song_value = formatted_hour + '00_' + get_station_name(tune_freq)
+                    song_value = formatted_hour + '_' + get_station_name(tune_freq)
                     udp_msg = udp_msg + song_value + ','
                     #[Arg 4]
                     artist_value = 'Abhijeet_Deshpande'
