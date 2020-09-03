@@ -83,6 +83,7 @@ def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
     print 'Wave -> MP3:'
     print cmd
     subprocess.call (cmd, shell=True)
+    exit()
     
     if (os.path.exists (dest)):
         # Remove Wav file
