@@ -31,6 +31,7 @@ TUNER_PATH = '/home/pi/Downloads/radio_tea5767/radio_tea5767'
 DROPBOX_DELETE_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh delete /'
 DROPBOX_LIST_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list /'
 MUSIC_DB         = '/home/pi/Music/fm_db/'
+MIN_RECORD_DURATION_MINS = 12
 ############################################################
 
 DROPBOX_DOWNLOAD_SCRIPT = ''
@@ -359,9 +360,7 @@ def main ():
             print 'FM tuned to ' + str(tune_freq) + ' MHz\n'
             timenow = datetime.now()
             duration_mins = 60 - minute
-            ##################### HACK #######################
-            duration_mins = 1
-            if (duration_mins > 0):
+            if (duration_mins > MIN_RECORD_DURATION_MINS):
             
                 f = open("/home/pi/fm/fm.log", "a")
                 f.write(str(hour) + ":" + str(minute) + "Record for " + str(duration_mins) + " minutes\n")
