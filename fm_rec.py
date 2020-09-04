@@ -257,15 +257,21 @@ def tune_fm(freq):
     #subprocess.call ('/home/pi/Music/radio_tea5767/radio_tea5767 105.3', '')
 
 
+# Download schedule.txt file from Dropbox. The schedule file contains an array of size 24
+# Each line is a csv of hour,FM frequency pair:
+#
+# 0,91.1   # Tune into 91.1 MHz at 12:00 midnight
+# 1,88.6   # Tune into 88.6 MHz at 01:00 AM
+# 2,0      # Skip tuning at 02:00 AM
+# ....
+# 23,102.9 # Tune into 102.9 MHz at 11:00 PM
 def download_schedule ():
     global DROPBOX_DOWNLOAD_CMD
 #    global DROPBOX_DOWNLOAD_SCRIPT
     global SCHED_PATH_F
     cmd = DROPBOX_DOWNLOAD_CMD + SCHED_PATH_F
-    #cmd = DROPBOX_DOWNLOAD_SCRIPT
     print 'Download schedule cmd:\n'
     print cmd + '\n'
-    #subprocess.call (cmd)
 
     ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ps.communicate()[0]
