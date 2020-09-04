@@ -86,10 +86,10 @@ def get_remote_file_name (hour):
 
 while True:
     print ('Waiting for FM recorder to finish...')
-    ################ HACK ####################
-    #data, addr = sock_in.recvfrom(512)
+    data, addr = sock_in.recvfrom(512)
 
-    data = '/home/pi/Music/fm_db/blr/wav/1700_Fever_FM.wav,/home/pi/Music/fm_db/blr/mp3/1700_Fever_FM.mp3,Fever_FM,1700_Fever_FM,Abhijeet_Deshpande,2020,Radio,/home/pi/fm/coverart/blr/Fever.png'
+    sample_data = '/home/pi/Music/fm_db/blr/wav/1700_Fever_FM.wav,/home/pi/Music/fm_db/blr/mp3/1700_Fever_FM.mp3,Fever_FM,1700_Fever_FM,Abhijeet_Deshpande,2020,Radio,/home/pi/fm/coverart/blr/Fever.png'
+    #data = sample_data
     temp = data.split(',')
 
     wav_target_file = temp[0]
