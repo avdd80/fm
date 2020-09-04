@@ -109,7 +109,7 @@ while True:
 
     is_wav2mp3_success = wav2mp3 (wav_target_file, mp3_target_file, album_value, song_value, artist_value, year_value, genre_value, cover_art_value)
     
-    if (os.path.exists (dest)):
+    if (os.path.exists (wav_target_file)):
         # Delete wave file
         print ('Deleting wav file...')
         ps = subprocess.Popen('sudo rm -f ' + wav_target_file , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
