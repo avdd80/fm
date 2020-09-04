@@ -89,6 +89,7 @@ while True:
     ################ HACK ####################
     #data, addr = sock_in.recvfrom(512)
 
+    data = '/home/pi/Music/fm_db/blr/wav/1700_Fever_FM.wav,/home/pi/Music/fm_db/blr/mp3/1700_Fever_FM.mp3,Fever_FM,1700_Fever_FM,Abhijeet_Deshpande,2020,Radio,/home/pi/fm/coverart/blr/Fever.png'
     temp = data.split(',')
 
     wav_target_file = temp[0]
