@@ -14,6 +14,7 @@ sock_in.bind((UDP_IP, UDP_PORT_IN))
 # ./dropbox_uploader.sh upload testfile.jpg /dropbox/whatever/folder/you/want
 DROPBOX_UPLOADER_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh upload '
 DROPBOX_LIST_CMD     = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list '
+WAV2MP3_SCRIPT_F     = '/home/pi/fm/wav2mp3.sh'
 
 # #################################################################
 def is_file_valid(filepath, extension): # input audio file path and extension (.xxx)
@@ -47,6 +48,26 @@ def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
     #ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     #output = ps.communicate()[0]
     #print(output)
+    f = open(WAV2MP3_SCRIPT_F, "w")
+    f.write("#!/bin/bash\n\n")
+    f.write(cmd)
+    f.close
+    sleep (1)
+    
+    if (os.path.exists (WAV2MP3_SCRIPT_F)):
+
+        ps = subprocess.Popen('sudo chmod +x ' + WAV2MP3_SCRIPT_F, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        output = ps.communicate()[0]
+        print(output)
+        sleep (1)
+        
+        ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        output = ps.communicate()[0]
+        print(output)
+        #sleep (10)
+        
+        
+        
     
     if (os.path.exists (dest)):
         # Remove Wav file
