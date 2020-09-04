@@ -86,7 +86,8 @@ def get_remote_file_name (hour):
 
 while True:
     print ('Waiting for FM recorder to finish...')
-    data, addr = sock_in.recvfrom(512)
+    ################ HACK ####################
+    #data, addr = sock_in.recvfrom(512)
 
     temp = data.split(',')
 
@@ -138,3 +139,5 @@ while True:
         print(output)
     else:
         print ('Error: mp3 conversion failed!')
+    ################ HACK ####################
+    exit()
