@@ -41,16 +41,18 @@ def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
         cmd = cmd + ' --ti ' + cover_art
     print 'Wave -> MP3:'
     print cmd
-    #subprocess.call (cmd, shell=True)
-
-    ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    output = ps.communicate()[0]
-    print(output)
+    subprocess.call (cmd, shell=True)
+    sleep(10)
+    ################ HACK ####################
+    #ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    #output = ps.communicate()[0]
+    #print(output)
     
     if (os.path.exists (dest)):
         # Remove Wav file
         print ('Success! dest file created. Deleting src file....')
-        os.remove (src)
+        ################ HACK ####################
+        #os.remove (src)
 
         is_success = 1
     else:
@@ -113,9 +115,10 @@ while True:
     
     # Delete wave file
     print ('Deleting wav file...')
-    ps = subprocess.Popen('sudo rm -f ' + wav_target_file , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    output = ps.communicate()[0]
-    print(output)
+    ################ HACK ####################
+    #ps = subprocess.Popen('sudo rm -f ' + wav_target_file , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    #output = ps.communicate()[0]
+    #print(output)
 
     if (is_wav2mp3_success):
 
