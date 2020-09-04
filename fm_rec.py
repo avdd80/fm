@@ -359,7 +359,9 @@ def main ():
             print 'FM tuned to ' + str(tune_freq) + ' MHz\n'
             timenow = datetime.now()
             duration_mins = 60 - minute
-            if (duration_mins > 12):
+            ##################### HACK #######################
+            duration_mins = 1
+            if (duration_mins > 0):
             
                 f = open("/home/pi/fm/fm.log", "a")
                 f.write(str(hour) + ":" + str(minute) + "Record for " + str(duration_mins) + " minutes\n")
