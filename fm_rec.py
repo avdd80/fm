@@ -135,7 +135,6 @@ def setup():
         os.mkdir(ROOT_PATH)
         os.mkdir(ROOT_PATH+'wav')
         os.mkdir(ROOT_PATH+'mp3')
-#    if (not os.path.exists(SCHED_PATH_F)):
     download_schedule ()
         
 
@@ -178,31 +177,16 @@ def get_tune_freq ():
     return float(ret_val)
 
 
-def delete_remote_file (hour):
+def delete_remote_file (search_str):
     global DROPBOX_LIST_CMD
     global DROPBOX_DELETE_CMD
-#    global TEMP_FILE_F
-
-    # Get a list of all files on Dropbox
-#    subprocess.call ('sudo ' + DROPBOX_LIST_CMD + ' | grep ' + str(hour*100) + ' > /home/pi/temp.txt' )
-#    remote_list_fp = open(TEMP_FILE_F, 'r')
-#    remote_list_lines = remote_list_fp.read().split("\n")
-#    remote_list_fp.close()
-#    os.remove (TEMP_FILE_F)
 
     ps = subprocess.Popen(DROPBOX_LIST_CMD, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ps.communicate()[0]
     print(output)
 
-    
-
     # Check if a file with current hour is present.
     if (len (output) > 0):
-        # Search for 'hh00_'
-        if (hour > 0):
-            search_str = (str(hour*100)+'_')
-        elif (hour == 0):
-            search_str = '0000_'
 
         # Is hh00_ present on the remote dir?
         if (search_str in output):
@@ -248,12 +232,27 @@ def delete_remote_file (hour):
     else:
         print 'Bad result from list cmd!'
 
+def radio_off():
+    global TUNER_PATH
+    cmd = TUNER_PATH + ' off'
+    print cmd
+    subprocess.call (cmd, shell=True)
 
 
 def tune_fm(freq):
     global TUNER_PATH
-    print TUNER_PATH + ' ' + str(freq)
-    subprocess.call (TUNER_PATH + ' ' + str(freq), shell=True)
+
+    cmd = TUNER_PATH + ' on'
+    print cmd
+    subprocess.call (cmd, shell=True)
+    
+    cmd = TUNER_PATH + ' ' + str(freq)
+    print cmd
+    subprocess.call (cmd, shell=True)
+    
+    cmd = TUNER_PATH + ' ' + 'stereo'
+    print cmd
+    subprocess.call (cmd, shell=True)
     #subprocess.call ('/home/pi/Music/radio_tea5767/radio_tea5767 105.3', '')
 
 
@@ -353,6 +352,8 @@ def main ():
             formatted_hour = str(hour*100)
             if (hour == 0):
                 formatted_hour = '0000'
+            elif (hour < 10):
+                formatted_hour = '0' + formatted_hour
             target_wav_file = ROOT_PATH + 'wav/' + formatted_hour + '_' + get_station_name(tune_freq) + '.wav'
             target_mp3_file = ROOT_PATH + 'mp3/' + formatted_hour + '_' + get_station_name(tune_freq) + '.mp3'
             print 'Target wave file: ' + target_wav_file
@@ -378,7 +379,7 @@ def main ():
 
                 if (is_record_success):
 
-                    delete_remote_file (hour)
+                    delete_remote_file (formatted_hour + '_')
 
                     ############### MP3 metadata ###############
                     #[Arg 0]                          [Arg 1]
@@ -429,8 +430,8 @@ def main ():
             f.close()
             sleep (60)
 
-    #else:
-            #radio_off()
+    else:
+            radio_off()
 ###############################################################
 # Main Function Call
 ###############################################################
