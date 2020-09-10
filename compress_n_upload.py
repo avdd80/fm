@@ -32,7 +32,7 @@ def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
     cmd = cmd + ' --add-id3v2 '
     cmd = cmd + ' --tl ' + alb
     cmd = cmd + ' --tt ' + song
-    cmd = cmd + ' --ta ' + artist
+    cmd = cmd + ' --ta ' + alb
     cmd = cmd + ' --ty ' + year
     cmd = cmd + ' --tg ' + genre
     if (cover_art != ''):
