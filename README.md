@@ -14,11 +14,16 @@ Dependencies:
     Install in /home/pi/Downloads
   
   2. Create a dropbox account, get access token from https://www.dropbox.com/developers/apps
-  
+
+  3. Wiripi C library
+     Install library from git clone https://github.com/WiringPi/WiringPi.git
+     Compile the library with ./build command
   3. TEA5767 Driver
     https://github.com/kjnam100/radio_tea5767
     Install in /home/pi/Downloads
-    Compile a binary using command "sudo make all" inside /home/pi/Downloads/radio_tea5767
+    Compile a binary using following command inside /home/pi/Downloads/radio_tea5767
+
+      sudo g++ -Wall -lm  radio_tea5767.c -o radio_tea5767 -lwiringPi
   
   4. LAME MP3 encoding software
   sudo apt-get install lame
