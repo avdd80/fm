@@ -15,9 +15,6 @@ Dependencies:
   
   2. Create a dropbox account, get access token from https://www.dropbox.com/developers/apps
 
-  3. Wiripi C library
-     Install library from git clone https://github.com/WiringPi/WiringPi.git
-     Compile the library with ./build command
   3. TEA5767 Driver
     https://github.com/kjnam100/radio_tea5767
     Install in /home/pi/Downloads
