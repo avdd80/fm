@@ -9,13 +9,13 @@ from time import sleep
 # SET BY USER ##############################################
 # Only set this variable to change FM source location ######
 ############################################################
-#RADIO_STATION='SAN DIEGO'
-RADIO_STATION='BANGALORE'
+RADIO_STATION='SAN DIEGO'
+#RADIO_STATION='BANGALORE'
 ############################################################
 # DO NOT MODIFY ############################################
 # RECORD COMMANDS ##########################################
 ############################################################
-STEREO_RECORD_CMD = 'sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d '
+STEREO_RECORD_CMD = 'sudo arecord -c 2 -f S16_LE -V stereo -r 48000 --device=hw:1,0 -d '
 MONO_RECORD_CMD   = 'sudo arecord -c 1 -f S16_LE -r 44100 --device=hw:1,0 -d '
 ############################################################
 # SET BY USER ##############################################
