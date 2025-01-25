@@ -53,7 +53,7 @@ def load_config(config):
     global ROOT_PATH
     global CoverArt
     global COVER_ROOT
-    print 'Load ' + config + ' config'
+    print ('Load ' + config + ' config')
     if (config == 'SAN DIEGO'):
         
         # SAN DIEGO ################################################
