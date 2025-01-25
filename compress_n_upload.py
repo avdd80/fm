@@ -38,7 +38,7 @@ def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
     if (cover_art != ''):
         cmd = cmd + ' --ti ' + cover_art
     else:
-        print ('Error (Low): No cover art available'
+        print ('Error (Low): No cover art available')
     print ('Wave -> MP3:')
     print (cmd)
     subprocess.call (cmd, shell=True)
