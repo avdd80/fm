@@ -25,7 +25,7 @@ def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
 
     is_success = 0
 
-    print 'WAV2MP3:'
+    print ('WAV2MP3:')
     cmd = 'sudo lame '
     cmd = cmd + ' ' + src
     cmd = cmd + ' ' + dest
@@ -38,9 +38,9 @@ def wav2mp3 (src, dest, alb, song, artist, year, genre, cover_art):
     if (cover_art != ''):
         cmd = cmd + ' --ti ' + cover_art
     else:
-        print 'Error (Low): No cover art available'
-    print 'Wave -> MP3:'
-    print cmd
+        print ('Error (Low): No cover art available'
+    print ('Wave -> MP3:')
+    print (cmd)
     subprocess.call (cmd, shell=True)
     sleep(10)
 
@@ -59,7 +59,7 @@ def trigger_file_upload (filename):
 
     global DROPBOX_UPLOADER_CMD
 
-    print 'Uploading file to Dropbox...'
+    print ('Uploading file to Dropbox...')
     cmd = DROPBOX_UPLOADER_CMD + ' ' + filename + ' /.'
 
     ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -123,9 +123,9 @@ while True:
         is_upload_success = trigger_file_upload (mp3_target_file)
         
         if (is_upload_success):
-            print 'Success: Dropbox upload success'
+            print ('Success: Dropbox upload success')
         else:
-            print 'Error: Dropbox upload failed.'
+            print ('Error: Dropbox upload failed')
 
         #os.remove (mp3_target_file)
         print ('Deleting mp3 file...')
