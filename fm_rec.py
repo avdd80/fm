@@ -57,7 +57,7 @@ def load_config(config):
     if (config == 'SAN DIEGO'):
         
         # SAN DIEGO ################################################
-        print REC_CMD
+        print ( REC_CMD )
         DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule.txt'
@@ -122,7 +122,7 @@ def load_config(config):
                        90.4:  COVER_ROOT + 'RadioActive.png', 
                        102.9: COVER_ROOT + 'Aakashvani.png',
                        105.6: COVER_ROOT + 'GyanVani.JPG'}
-    print 'Record command: ' + REC_CMD
+    print ( 'Record command: ' + REC_CMD )
         
 def setup():
     global ROOT_PATH
@@ -163,15 +163,15 @@ def get_tune_freq ():
     if (timenow.minute < 59):
         ret_val = 1
 
-    print sched_lines[0:24]
-    print 'Recording hour: ' + str(timenow.hour) + ':00'
+    print ( sched_lines[0:24] )
+    print ( 'Recording hour: ' + str(timenow.hour) + ':00' )
         
     # Extract station frequency
     if ((sched_lines[timenow.hour] > 0) and ret_val == 1):
         temp = sched_lines[timenow.hour].split(',')
 
         ret_val = temp[1]
-        print 'Read station: ' + ret_val + ' MHz'
+        print ('Read station: ' + ret_val + ' MHz')
     else:
         ret_val = 0;
     return float(ret_val)
@@ -206,7 +206,7 @@ def delete_remote_file (search_str):
             # Search for matching file names
             while (i < length and search_str not in remote_list_lines[i]):
                 i += 1
-            print 'Found file at index ' + str(i) + '\n'
+            print ('Found file at index ' + str(i) + '\n')
 
             # The first line of the list command result does not contain filename. If
             # i has not incremented beyond 0, no file on remote dir is found. 
@@ -216,11 +216,11 @@ def delete_remote_file (search_str):
                 if (len(remote_list_lines_split) >= 3):
                     filename = remote_list_lines_split[3]
 
-                print ' Found remote file: ' + filename + ' out of ' + remote_list_lines[i]
+                print (' Found remote file: ' + filename + ' out of ' + remote_list_lines[i])
                     
                 # If a matching file is found, delete it
                 if ('mp3' in filename):
-                    print 'Deleting remote file: ' + filename
+                    print ('Deleting remote file: ' + filename)
                     #subprocess.call (DROPBOX_DELETE_CMD + filename)
                     ps = subprocess.Popen(DROPBOX_DELETE_CMD + filename, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                     output = ps.communicate()[0]
@@ -230,12 +230,12 @@ def delete_remote_file (search_str):
             else:
                 print ('No matching file on remote dir for ' + search_str + '\n')
     else:
-        print 'Bad result from list cmd!'
+        print ('Bad result from list cmd!')
 
 def radio_off():
     global TUNER_PATH
     cmd = TUNER_PATH + ' off'
-    print cmd
+    print (cmd)
     subprocess.call (cmd, shell=True)
 
 
@@ -243,15 +243,15 @@ def tune_fm(freq):
     global TUNER_PATH
 
     cmd = TUNER_PATH + ' on'
-    print cmd
+    print (cmd)
     subprocess.call (cmd, shell=True)
     
     cmd = TUNER_PATH + ' ' + str(freq)
-    print cmd
+    print (cmd)
     subprocess.call (cmd, shell=True)
     
     cmd = TUNER_PATH + ' ' + 'stereo'
-    print cmd
+    print (cmd)
     subprocess.call (cmd, shell=True)
     #subprocess.call ('/home/pi/Music/radio_tea5767/radio_tea5767 105.3', '')
 
@@ -269,8 +269,8 @@ def download_schedule ():
 #    global DROPBOX_DOWNLOAD_SCRIPT
     global SCHED_PATH_F
     cmd = DROPBOX_DOWNLOAD_CMD + SCHED_PATH_F
-    print 'Download schedule cmd:\n'
-    print cmd + '\n'
+    print ('Download schedule cmd:\n')
+    print (cmd + '\n')
 
     ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ps.communicate()[0]
@@ -285,14 +285,14 @@ def record_fm_mins (target_wav_file, duration_mins):
 
     if (os.path.exists(target_wav_file)):
         print ('Deleting existing wav file:')
-        print target_wav_file
+        print (target_wav_file)
         os.remove (target_wav_file)
 
-    print 'Will record for ' + str(duration_mins) + ' minutes.'
+    print ('Will record for ' + str(duration_mins) + ' minutes.')
     duration_secs = duration_mins * 60
     subprocess.call (REC_CMD + str(duration_secs) + ' ' + target_wav_file, shell=True)
     #subprocess.call ('sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d ' + str(duration_secs) + ' ' + target_wav_file, shell=True)
-    print 'Record done!'
+    print ('Record done!')
     if (os.path.exists(target_wav_file)):
         print ('Target file ' + target_wav_file + ' exists.')
         return 1
@@ -306,9 +306,9 @@ def send_udp_message (MESSAGE):
     UDP_IP = "127.0.0.1"
     UDP_PORT = 30000
 
-    print "UDP target IP:", UDP_IP
-    print "UDP target port:", UDP_PORT
-    print "message: ", MESSAGE
+    print ("UDP target IP:", UDP_IP)
+    print ("UDP target port:", UDP_PORT)
+    print ("message: ", MESSAGE)
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
@@ -356,15 +356,15 @@ def main ():
                 formatted_hour = '0' + formatted_hour
             target_wav_file = ROOT_PATH + 'wav/' + formatted_hour + '_' + get_station_name(tune_freq) + '.wav'
             target_mp3_file = ROOT_PATH + 'mp3/' + formatted_hour + '_' + get_station_name(tune_freq) + '.mp3'
-            print 'Target wave file: ' + target_wav_file
-            print 'Target mp3 file:  ' + target_mp3_file
+            print ('Target wave file: ' + target_wav_file)
+            print ('Target mp3 file:  ' + target_mp3_file)
             if os.path.exists(target_wav_file):
                 os.remove(target_wav_file)
             if os.path.exists(target_mp3_file):
                 os.remove(target_mp3_file)
-            print 'Tuning FM...'
+            print ('Tuning FM...')
             tune_fm(tune_freq)
-            print 'FM tuned to ' + str(tune_freq) + ' MHz\n'
+            print ('FM tuned to ' + str(tune_freq) + ' MHz\n')
             timenow = datetime.now()
             duration_mins = 60 - minute
             if (duration_mins > MIN_RECORD_DURATION_MINS):
@@ -373,9 +373,9 @@ def main ():
                 f.write(str(hour) + ":" + str(minute) + "Record for " + str(duration_mins) + " minutes\n")
                 f.close()
             
-                print 'Record for ' + str(duration_mins) + ' minutes'
+                print ('Record for ' + str(duration_mins) + ' minutes')
                 is_record_success = record_fm_mins (target_wav_file, duration_mins)
-                print 'Record done.\n'
+                print ('Record done.\n')
 
                 if (is_record_success):
 
@@ -406,7 +406,7 @@ def main ():
                     print ('Sending UDP message for coversion:')
                     print (udp_msg)
                     send_udp_message (udp_msg)
-                    print 'Record success'
+                    print ('Record success')
 
                     # Download requested recording schedule
                     download_schedule ()
@@ -414,17 +414,17 @@ def main ():
                     f = open("/home/pi/fm/fm.log", "a")
                     f.write(str(hour) + ":" + str(minute) + "Record failed. Wait 10 seconds...\n")
                     f.close()
-                    print 'Record failed. Wait 10 seconds...'
+                    print ('Record failed. Wait 10 seconds...')
                     sleep (10)
             else:
 
                 f = open("/home/pi/fm/fm.log", "a")
                 f.write(str(hour) + ":" + str(minute) + "Record duration too short (" + str(duration_mins) + " minutes). Skipping current record. Wait 60 seconds...\n")
                 f.close()
-                print 'Record duration too short (' + str(duration_mins) + ' minutes). Skipping current record. Wait 60 seconds...'
+                print ('Record duration too short (' + str(duration_mins) + ' minutes). Skipping current record. Wait 60 seconds...')
                 sleep (60)
         else:
-            print 'No recording. Wait 60 seconds...'
+            print ('No recording. Wait 60 seconds...')
             f = open("/home/pi/fm/fm.log", "a")
             f.write(str(hour) + ":" + str(minute) + "No recording. Wait 60 seconds...\n")
             f.close()
