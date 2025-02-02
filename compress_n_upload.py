@@ -66,7 +66,7 @@ def trigger_file_upload (filename):
     output = ps.communicate()[0]
     print(output)
 
-    if (output.find('DONE') > 0 ):
+    if (output.decode('utf-8').find('DONE') > 0 ):
         return 1
     else:
         return 0
@@ -84,7 +84,7 @@ while True:
 
     sample_data = '/home/pi/Music/fm_db/blr/wav/1700_Fever_FM.wav,/home/pi/Music/fm_db/blr/mp3/1700_Fever_FM.mp3,Fever_FM,1700_Fever_FM,Abhijeet_Deshpande,2020,Radio,/home/pi/fm/coverart/blr/Fever.png'
     #data = sample_data
-    temp = (data.encode('utf-8')).split(',')
+    temp = (data.decode('utf-8')).split(',')
 
     wav_target_file = temp[0]
     mp3_target_file = temp[1]
