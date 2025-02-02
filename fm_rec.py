@@ -182,7 +182,7 @@ def delete_remote_file (search_str):
     global DROPBOX_DELETE_CMD
 
     ps = subprocess.Popen(DROPBOX_LIST_CMD, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    output = ps.communicate()[0]
+    output = str(ps.communicate()[0])
     print(output)
 
     # Check if a file with current hour is present.
@@ -311,7 +311,7 @@ def send_udp_message (MESSAGE):
     print ("message: ", MESSAGE)
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
+    sock.sendto(MESSAGE.encode('utf-8'), (UDP_IP, UDP_PORT))
 
 def get_station_name (freq):
 

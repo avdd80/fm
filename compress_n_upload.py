@@ -84,7 +84,7 @@ while True:
 
     sample_data = '/home/pi/Music/fm_db/blr/wav/1700_Fever_FM.wav,/home/pi/Music/fm_db/blr/mp3/1700_Fever_FM.mp3,Fever_FM,1700_Fever_FM,Abhijeet_Deshpande,2020,Radio,/home/pi/fm/coverart/blr/Fever.png'
     #data = sample_data
-    temp = data.split(',')
+    temp = (data.encode('utf-8')).split(',')
 
     wav_target_file = temp[0]
     mp3_target_file = temp[1]
