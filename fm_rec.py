@@ -1,3 +1,4 @@
+import RPi.GPIO as GPIO
 from datetime import *
 import subprocess
 import os
@@ -9,8 +10,8 @@ from time import sleep
 # SET BY USER ##############################################
 # Only set this variable to change FM source location ######
 ############################################################
-RADIO_STATION='SAN DIEGO'
-#RADIO_STATION='BANGALORE'
+#RADIO_STATION='SAN DIEGO'
+RADIO_STATION='BANGALORE'
 ############################################################
 # DO NOT MODIFY ############################################
 # RECORD COMMANDS ##########################################
@@ -32,6 +33,7 @@ DROPBOX_DELETE_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh de
 DROPBOX_LIST_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list /'
 MUSIC_DB         = '/home/pi/Music/fm_db/'
 MIN_RECORD_DURATION_MINS = 12
+LED_PIN = 17
 ############################################################
 
 DROPBOX_DOWNLOAD_SCRIPT = ''
@@ -41,7 +43,6 @@ ROOT_PATH = ''
 COVER_ROOT = ''
 FM_stations = {}
 CoverArt = {}
-
 
 
 def load_config(config):
@@ -128,6 +129,10 @@ def setup():
     global ROOT_PATH
     global MUSIC_DB
     global SCHED_PATH_F
+    # Set LED indicator pin to OUTPUT mode
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(LED_PIN, GPIO.OUT)
+    GPIO.output(LED_PIN, GPIO.LOW)
 
     if (not os.path.exists(ROOT_PATH)):
         if (not os.path.exists(MUSIC_DB)):
@@ -290,7 +295,13 @@ def record_fm_mins (target_wav_file, duration_mins):
 
     print ('Will record for ' + str(duration_mins) + ' minutes.')
     duration_secs = duration_mins * 60
+
+    # Set indicator pin to HIGH while recording
+    GPIO.output(LED_PIN, GPIO.HIGH)
     subprocess.call (REC_CMD + str(duration_secs) + ' ' + target_wav_file, shell=True)
+
+    # Set indicator pin to LOW after recording is finished
+    GPIO.output(LED_PIN, GPIO.LOW)
     #subprocess.call ('sudo arecord -c 2 -f S16_LE -V stereo -r 48000 -d ' + str(duration_secs) + ' ' + target_wav_file, shell=True)
     print ('Record done!')
     if (os.path.exists(target_wav_file)):
