@@ -34,6 +34,25 @@ DROPBOX_LIST_CMD = '/home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh list
 MUSIC_DB         = '/home/pi/Music/fm_db/'
 MIN_RECORD_DURATION_MINS = 12
 LED_PIN = 17
+
+############################################################
+# DO NOT MODIFY ############################################
+# REMOTE COMMANDS ##########################################
+# These commands are sent by user through the schedule.txt
+# file to RPi.
+############################################################
+# @brief
+# 1..10    System commands
+# 11..87   Other housekeeping commands
+# 88..108  Tuneable FM frequencies in MHz
+# 109..inf Unused values to be ignored
+############################################################
+RC_HALT           = '1.0'
+RC_HALT_CMD       = ' halt'
+RC_FACTORY_RESET  = '2.0'   # not implemented
+RC_CYCLE_STATIONS = '11.0'  # not implemented
+RC_UPLOAD_LOGS    = '12.0'  # not implemented
+
 ############################################################
 
 DROPBOX_DOWNLOAD_SCRIPT = ''
@@ -152,6 +171,9 @@ def get_cover_art_path (freq):
         cover_art_path = CoverArt[freq]
     return cover_art_path
 
+
+# This function returns the frequency of the FM station to be tuned.
+# It may also return a remote command whose value is less than 88.
 def get_tune_freq ():
 
     global SCHED_PATH_F
@@ -170,7 +192,7 @@ def get_tune_freq ():
 
     print ( sched_lines[0:24] )
     print ( 'Recording hour: ' + str(timenow.hour) + ':00' )
-        
+    
     # Extract station frequency
     if ((len(sched_lines[timenow.hour]) > 0) and ret_val == 1):
         temp = sched_lines[timenow.hour].split(',')
@@ -337,6 +359,7 @@ def main ():
 
     global ROOT_PATH
     loop = 1
+    skip_audio_recording = 0
     
     f = open("/home/pi/fm/fm.log", "w")
     f.write("Log begin\n")
@@ -347,6 +370,7 @@ def main ():
         #loop = 0
         target_wav_file = ''
         is_record_success = 0
+        skip_audio_recording = 0
 
         tune_freq = get_tune_freq ()
         timenow = datetime.now()
@@ -356,6 +380,24 @@ def main ():
         f.write(str(hour) + ":" + str(minute) + " Tune freq = " + str(tune_freq) + "\n")
         f.close()
 
+        #----------------------------------------------------------------------
+        # Handle Remote commands here before attempting to tune FM receiver
+        #----------------------------------------------------------------------
+        # If the remote command is HALT, shutdown RPi immediately.
+        if (tune_freq == RC_HALT):
+            print ('Remote command received. Shutting down...')
+            ps = subprocess.Popen(RC_HALT_CMD, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+        elif (tune_freq == RC_FACTORY_RESET):  # not implemented
+            skip_audio_recording = 1
+            
+        elif (tune_freq == RC_CYCLE_STATIONS): # not implemented
+            skip_audio_recording = 1
+            
+        elif (tune_freq == RC_UPLOAD_LOGS):    # not implemented
+            skip_audio_recording = 1
+        #----------------------------------------------------------------------
+        
         if (tune_freq > 0):
             timenow = datetime.now()
             hour = timenow.hour
@@ -383,10 +425,15 @@ def main ():
                 f = open("/home/pi/fm/fm.log", "a")
                 f.write(str(hour) + ":" + str(minute) + "Record for " + str(duration_mins) + " minutes\n")
                 f.close()
-            
-                print ('Record for ' + str(duration_mins) + ' minutes')
-                is_record_success = record_fm_mins (target_wav_file, duration_mins)
-                print ('Record done.\n')
+
+                if (skip_audio_recording):
+                    print ('Skipping recording for ' + str(duration_mins) + ' minutes')
+                    sleep ( duration_mins * 60 )
+                    is_record_success = 0
+                else:
+                    print ('Record for ' + str(duration_mins) + ' minutes')
+                    is_record_success = record_fm_mins (target_wav_file, duration_mins)
+                    print ('Record done.\n')
 
                 if (is_record_success):
 
@@ -432,8 +479,8 @@ def main ():
                 f = open("/home/pi/fm/fm.log", "a")
                 f.write(str(hour) + ":" + str(minute) + "Record duration too short (" + str(duration_mins) + " minutes). Skipping current record. Wait 60 seconds...\n")
                 f.close()
-                print ('Record duration too short (' + str(duration_mins) + ' minutes). Skipping current record. Wait 60 seconds...')
-                sleep (60)
+                print ('Record duration too short (' + str(duration_mins) + ' minutes). Skipping current record.')
+                sleep ( duration_mins * 60 )
         else:
             print ('No recording. Wait 60 seconds...')
             f = open("/home/pi/fm/fm.log", "a")
