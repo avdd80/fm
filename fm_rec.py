@@ -11,7 +11,8 @@ from time import sleep
 # Only set this variable to change FM source location ######
 ############################################################
 #RADIO_STATION='SAN DIEGO'
-RADIO_STATION='BANGALORE'
+#RADIO_STATION='BANGALORE'
+RADIO_STATION='PUNE'
 ############################################################
 # DO NOT MODIFY ############################################
 # RECORD COMMANDS ##########################################
@@ -142,6 +143,33 @@ def load_config(config):
                        90.4:  COVER_ROOT + 'RadioActive.png', 
                        102.9: COVER_ROOT + 'Aakashvani.png',
                        105.6: COVER_ROOT + 'GyanVani.JPG'}
+    elif (config == 'PUNE'):
+        # BANGALORE ################################################
+        DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/Downloads/fm/download_pune_schedule.sh'
+        DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule_pune.txt '
+        SCHED_PATH_F = '/home/pi/Music/schedule_pune.txt'
+        ROOT_PATH   = MUSIC_DB + 'pune/'
+        COVER_ROOT  = '/home/pi/Downloads/fm/coverart/pune/'
+        FM_stations = {91.1: 'Radio_City', 
+                       98.3: 'Radio_Mirchi', 
+                       94.3: 'Radio_One', 
+                       93.5: 'Red_FM', 
+                       99.0: 'VH1_Radio', 
+                       92.7: 'Big_FM',
+                       91.9: 'Pundari',
+                       107.8: 'Sarthi', 
+                       100.7: 'Akashvani', 
+                       107.4: 'Vidyavani'}
+        CoverArt    = {91.1:  COVER_ROOT + 'RadioCity.png', 
+                       98.3:  COVER_ROOT + 'Radio_Mirchi.jpg',
+                       94.3:  COVER_ROOT + 'Radio_One.JPG', 
+                       93.5:  COVER_ROOT + 'Red_FM.png', 
+                       99.0:  COVER_ROOT + 'VH1_Radio.JPG', 
+                       92.7:  COVER_ROOT + 'Big_FM.JPG', 
+                       91.9:  COVER_ROOT + 'Pundari.PNG',
+                       107.8: COVER_ROOT + 'Sarthi.png', 
+                       100.7: COVER_ROOT + 'Akashvani.JPG', 
+                       107.4: COVER_ROOT + 'Vidyavani.JPG'}
     print ( 'Record command: ' + REC_CMD )
         
 def setup():
