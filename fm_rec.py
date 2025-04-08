@@ -78,11 +78,11 @@ def load_config(config):
         
         # SAN DIEGO ################################################
         print ( REC_CMD )
-        DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_schedule.sh'
+        DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/Downloads/fm/download_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule.txt'
         ROOT_PATH = MUSIC_DB + 'san/'
-        COVER_ROOT  = '/home/pi/fm/coverart/san/'
+        COVER_ROOT  = '/home/pi/Downloads/fm/coverart/san/'
         FM_stations = {88.3: 'San_Diegos_Jazz',
                        89.5: 'NPR', 
                        91.1: '91X_XETRA_FM', 
@@ -111,11 +111,11 @@ def load_config(config):
                        106.5: COVER_ROOT + 'san_fm.jpg'}
     elif (config == 'BANGALORE'):
         # BANGALORE ################################################
-        DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/fm/download_blr_schedule.sh'
+        DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/Downloads/fm/download_blr_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule_blr.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule_blr.txt'
         ROOT_PATH   = MUSIC_DB + 'blr/'
-        COVER_ROOT  = '/home/pi/fm/coverart/blr/'
+        COVER_ROOT  = '/home/pi/Downloads/fm/coverart/blr/'
         FM_stations = {91.1: 'Radio_City', 
                        98.3: 'Radio_Mirchi', 
                        94.3: 'Radio_One', 
@@ -361,7 +361,7 @@ def main ():
     loop = 1
     skip_audio_recording = 0
     
-    f = open("/home/pi/fm/fm.log", "w")
+    f = open("/home/pi/Downloads/fm/fm.log", "w")
     f.write("Log begin\n")
     
     setup()
@@ -376,7 +376,7 @@ def main ():
         timenow = datetime.now()
         hour = timenow.hour
         minute = timenow.minute
-        f = open("/home/pi/fm/fm.log", "a")
+        f = open("/home/pi/Downloads/fm/fm.log", "a")
         f.write(str(hour) + ":" + str(minute) + " Tune freq = " + str(tune_freq) + "\n")
         f.close()
 
@@ -422,7 +422,7 @@ def main ():
             duration_mins = 60 - minute
             if (duration_mins > MIN_RECORD_DURATION_MINS):
             
-                f = open("/home/pi/fm/fm.log", "a")
+                f = open("/home/pi/Downloads/fm/fm.log", "a")
                 f.write(str(hour) + ":" + str(minute) + "Record for " + str(duration_mins) + " minutes\n")
                 f.close()
 
@@ -469,21 +469,21 @@ def main ():
                     # Download requested recording schedule
                     download_schedule ()
                 else:
-                    f = open("/home/pi/fm/fm.log", "a")
+                    f = open("/home/pi/Downloads/fm/fm.log", "a")
                     f.write(str(hour) + ":" + str(minute) + "Record failed. Wait 10 seconds...\n")
                     f.close()
                     print ('Record failed. Wait 10 seconds...')
                     sleep (10)
             else:
 
-                f = open("/home/pi/fm/fm.log", "a")
+                f = open("/home/pi/Downloads/fm/fm.log", "a")
                 f.write(str(hour) + ":" + str(minute) + "Record duration too short (" + str(duration_mins) + " minutes). Skipping current record. Wait 60 seconds...\n")
                 f.close()
                 print ('Record duration too short (' + str(duration_mins) + ' minutes). Skipping current record.')
                 sleep ( duration_mins * 60 )
         else:
             print ('No recording. Wait 60 seconds...')
-            f = open("/home/pi/fm/fm.log", "a")
+            f = open("/home/pi/Downloads/fm/fm.log", "a")
             f.write(str(hour) + ":" + str(minute) + "No recording. Wait 60 seconds...\n")
             f.close()
             sleep (60)
