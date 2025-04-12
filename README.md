@@ -30,15 +30,15 @@ Setup Audio Injector:
   
   # Add FM scripts to startup: 
 
-  1. Add following lines to /home/pi/fm/Downloads/cron_launcher.sh
+  1. Add following lines to /home/pi/Downloads/fm/cron_launcher.sh
      ```
      #!/bin/sh
-     sudo /usr/bin/python /home/pi/fm/Downloads/compress_n_upload.py &
-     sudo /usr/bin/python /home/pi/fm/Downloads/fm_rec.py &
+     sudo /usr/bin/python /home/pi/Downloads/fm/compress_n_upload.py &
+     sudo /usr/bin/python /home/pi/Downloads/fm/fm_rec.py &
      ```
   2. Make the shell script executable
      ```
-     chmod +x /home/pi/fm/Downloads/cron_launcher.sh
+     chmod +x /home/pi/Downloads/fm/cron_launcher.sh
      ```
   3. Add shell script to crontab:
      ```
@@ -47,7 +47,7 @@ Setup Audio Injector:
      # Reboot everyday at midnight 12:00 AM
      0 0 * * * root reboot
      # Launch FM scripts at 12:02 AM everyday
-     2 0 * * * root /home/pi/fm/Downloads/cron_launcher.sh
+     2 0 * * * root /home/pi/Downloads/fm/cron_launcher.sh
      ```
    4. Reboot RPi to ensure crontab takes effect.
    5. Confirm that scripts have started by grepping running processes:
