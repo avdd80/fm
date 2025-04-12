@@ -144,34 +144,38 @@ def load_config(config):
                        102.9: COVER_ROOT + 'Aakashvani.png',
                        105.6: COVER_ROOT + 'GyanVani.JPG'}
     elif (config == 'PUNE'):
-        # BANGALORE ################################################
+        # PUNE ######################################################
         DROPBOX_DOWNLOAD_SCRIPT = 'sudo -S /home/pi/Downloads/fm/download_pune_schedule.sh'
         DROPBOX_DOWNLOAD_CMD = 'sudo /home/pi/Downloads/Dropbox-Uploader/dropbox_uploader.sh download schedule_pune.txt '
         SCHED_PATH_F = '/home/pi/Music/schedule_pune.txt'
         ROOT_PATH   = MUSIC_DB + 'pune/'
         COVER_ROOT  = '/home/pi/Downloads/fm/coverart/pune/'
-        FM_stations = {91.1: 'Radio_City', 
-                       98.3: 'Radio_Mirchi', 
-                       94.3: 'Radio_One', 
-                       93.5: 'Red_FM', 
-                       99.0: 'VH1_Radio', 
-                       92.7: 'Big_FM',
-                       91.9: 'Pundari',
-                       107.8: 'Sarthi', 
-                       100.7: 'Akashvani', 
-                       107.4: 'Vidyavani'}
-        CoverArt    = {91.1:  COVER_ROOT + 'RadioCity.png', 
+        FM_stations = {91.1:  'Radio_City',   #1
+                       98.3:  'Radio_Mirchi', #2
+                       94.3:  'Radio_One',    #3
+                       93.5:  'Red_FM',       #4
+                       92.7:  'Big_FM',       #5
+                       91.9:  'Puneri',       #6
+                       107.8: 'Sarthi',       #7
+                       100.7: 'Akashvani',    #8
+                       107.4: 'Vidyavani',    #9
+                       90.4:  'FTII',         #10
+                       90.8:  'Krishi_Vigyan',#11
+                       89.6:  'Radio_TJ'}     #12
+        CoverArt    = {91.1:  COVER_ROOT + 'RadioCity.jpg', 
                        98.3:  COVER_ROOT + 'Radio_Mirchi.jpg',
-                       94.3:  COVER_ROOT + 'Radio_One.JPG', 
-                       93.5:  COVER_ROOT + 'Red_FM.png', 
-                       99.0:  COVER_ROOT + 'VH1_Radio.JPG', 
-                       92.7:  COVER_ROOT + 'Big_FM.JPG', 
-                       91.9:  COVER_ROOT + 'Pundari.PNG',
+                       94.3:  COVER_ROOT + 'Radio_One.jpg', 
+                       93.5:  COVER_ROOT + 'Red_FM.jpg', 
+                       92.7:  COVER_ROOT + 'Big_FM.png', 
+                       91.9:  COVER_ROOT + 'Puneri.png',
                        107.8: COVER_ROOT + 'Sarthi.png', 
-                       100.7: COVER_ROOT + 'Akashvani.JPG', 
-                       107.4: COVER_ROOT + 'Vidyavani.JPG'}
+                       100.7: COVER_ROOT + 'Akashvani.jpg', 
+                       107.4: COVER_ROOT + 'Vidyavani.jpg',
+                       90.4:  COVER_ROOT + 'FTII.png',
+                       90.8:  COVER_ROOT + 'Krishi_Vigyan.png',
+                       89.6:  COVER_ROOT + 'Radio_TJ.jpg'}
     print ( 'Record command: ' + REC_CMD )
-        
+     ################################################################
 def setup():
     global ROOT_PATH
     global MUSIC_DB
@@ -335,7 +339,6 @@ def download_schedule ():
     
 
 def record_fm_mins (target_wav_file, duration_mins):
-    
     global REC_CMD
 
     if (os.path.exists(target_wav_file)):
